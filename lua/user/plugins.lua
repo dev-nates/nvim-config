@@ -88,45 +88,71 @@ return packer.startup(function(use)
   -- Undo Tree
   use "mbbill/undotree"
 
-	-- UFO Code folding
-	use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+  -- UFO Code folding
+  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
 
-	-- Comments
-	use {
-		'numToStr/Comment.nvim',
-		config = function()
-			require('Comment').setup()
-		end
-	}
+  use {
+	  "windwp/nvim-autopairs",
+	  event = "InsertEnter",
+	  config = function()
+		  require("nvim-autopairs").setup ({
+			  enabled = function(bufnr) return true end, -- control if auto-pairs should be enabled when attaching to a buffer
+			  disable_filetype = { "TelescopePrompt", "spectre_panel", "snacks_picker_input" },
+			  disable_in_macro = true, -- disable when recording or executing a macro
+			  disable_in_visualblock = false, -- disable when insert after visual block mode
+			  disable_in_replace_mode = true,
+			  ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
+			  enable_moveright = true,
+			  enable_afterquote = true, -- add bracket pairs after quote
+			  enable_check_bracket_line = true, --- check bracket in same line
+			  enable_bracket_in_quote = true, --
+			  enable_abbr = false, -- trigger abbreviation
+			  break_undo = true, -- switch for basic rule break undo sequence
+			  check_ts = false,
+			  map_cr = true,
+			  map_bs = true, -- map the <BS> key
+			  map_c_h = true, -- Map the <C-h> key to delete a pair
+			  map_c_w = true, -- map <c-w> to delete a pair if possible
+		  })
+	  end
+  }
 
-	-- Comment Box
-	use "LudoPinelli/comment-box.nvim"
+  -- Comments
+  use {
+	  'numToStr/Comment.nvim',
+	  config = function()
+		  require('Comment').setup()
+	  end
+  }
+
+  -- Comment Box
+  use "LudoPinelli/comment-box.nvim"
 
   -- Colorscheme
-	use ({'alljokecake/naysayer-theme.nvim', as = 'naysayer'})
+  use ({'alljokecake/naysayer-theme.nvim', as = 'naysayer'})
 
-	--[[
+  --[[
   use { 
-    'olivercederborg/poimandres.nvim',
-    config = function()
-      require('poimandres').setup {
-        -- leave this setup function empty for default config
-        -- or refer to the configuration section
-        -- for configuration options
-      }
-    end
+	  'olivercederborg/poimandres.nvim',
+	  config = function()
+		  require('poimandres').setup {
+			  -- leave this setup function empty for default config
+			  -- or refer to the configuration section
+			  -- for configuration options
+		  }
+	  end
   }
-	]]
+  ]]
 
-	-- Indent guides
-	use { 'lukas-reineke/indent-blankline.nvim' }
+  -- Indent guides
+  use { 'lukas-reineke/indent-blankline.nvim' }
 
-	-- Align
-	use { 'https://github.com/echasnovski/mini.align'	}
+  -- Align
+  use { 'https://github.com/echasnovski/mini.align'	}
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
-    require("packer").sync()
+	  require("packer").sync()
   end
 end)
