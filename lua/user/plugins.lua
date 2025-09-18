@@ -42,35 +42,37 @@ packer.init {
 return packer.startup(function(use)
   -- My plugins here
   use "wbthomason/packer.nvim" -- Have packer manage itself
-  use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
-  use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
+  -- use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
+  use "nvim-lua/plenary.nvim" -- Useful lua functions used by lots of plugins
 
   -- Completion
-  use "hrsh7th/nvim-cmp"
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use "saadparwaiz1/cmp_luasnip" -- snippet completions
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-nvim-lua"
+  --use "hrsh7th/nvim-cmp"
+  --use 'L3MON4D3/LuaSnip'
 
-  use 'L3MON4D3/LuaSnip'
+  --use 'hrsh7th/cmp-buffer'
+  --use 'hrsh7th/cmp-path'
+  -- use 'hrsh7th/cmp-cmdline'
+  -- use "saadparwaiz1/cmp_luasnip" -- snippet completions
+  -- use "hrsh7th/cmp-nvim-lsp"
+  -- use "hrsh7th/cmp-nvim-lua"
+
 
   -- LSP
-  use "neovim/nvim-lspconfig" -- enable LSP
-  use "williamboman/mason.nvim" -- simple to use language server installer
-  use "williamboman/mason-lspconfig.nvim" -- simple to use language server installer
-  use "jose-elias-alvarez/null-ls.nvim" -- LSP diagnostics and code actions
+  -- use "neovim/nvim-lspconfig" -- enable LSP
+  -- use "williamboman/mason.nvim" -- simple to use language server installer
+  -- use "williamboman/mason-lspconfig.nvim" -- simple to use language server installer
+  -- use "jose-elias-alvarez/null-ls.nvim" -- LSP diagnostics and code actions
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
-  use "nvim-telescope/telescope-media-files.nvim"
+  -- use "nvim-telescope/telescope-media-files.nvim"
 
   -- Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
   }
+
 
   -- Harpoon (Thank you Sensei)
   use {
@@ -89,10 +91,21 @@ return packer.startup(function(use)
 	-- UFO Code folding
 	use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
 
+	-- Comments
+	use {
+		'numToStr/Comment.nvim',
+		config = function()
+			require('Comment').setup()
+		end
+	}
+
 	-- Comment Box
 	use "LudoPinelli/comment-box.nvim"
 
   -- Colorscheme
+	use ({'alljokecake/naysayer-theme.nvim', as = 'naysayer'})
+
+	--[[
   use { 
     'olivercederborg/poimandres.nvim',
     config = function()
@@ -103,6 +116,7 @@ return packer.startup(function(use)
       }
     end
   }
+	]]
 
 	-- Indent guides
 	use { 'lukas-reineke/indent-blankline.nvim' }

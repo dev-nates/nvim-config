@@ -16,21 +16,21 @@ cbox.setup({
   box_width = 100, -- width of the boxes
   line_width = 100, -- width of the lines
   borders = { -- symbols used to draw a box
-    top = "─",
-    bottom = "─",
-    left = "│",
-    right = "│",
-    top_left = "╭",
-    top_right = "╮",
-    bottom_left = "╰",
-    bottom_right = "╯",
+    top = "-",
+    bottom = "-",
+    left = "|",
+    right = "|",
+    top_left = "+",
+    top_right = "+",
+    bottom_left = "+",
+    bottom_right = "+",
   },
   lines = { -- symbols used to draw a line
-    line = "─",
-    line_start = "─",
-    line_end = "─",
-    title_left = "─",
-    title_right = "─",
+    line = "-",
+    line_start = "-",
+    line_end = "-",
+    title_left = "-",
+    title_right = "-",
   },
   outer_blank_lines_above = false, -- insert a blank line above the box
   outer_blank_lines_below = false, -- insert a blank line below the box

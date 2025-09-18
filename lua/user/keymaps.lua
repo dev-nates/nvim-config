@@ -35,6 +35,9 @@ keymap("n", "<c-j>", "<c-e>", opts)
 -- Switch to visual mode using space
 keymap("n", " ", "v", opts)
 
+-- Unbind weird key
+keymap("i", "<C-space>", "<space>", opts)
+
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize +2<CR>", opts)
 keymap("n", "<C-Down>", ":resize -2<CR>", opts)
@@ -105,10 +108,17 @@ keymap({ "n", "v", "x" }, "<leader>ch", "<cmd>CBllline<cr>V=<esc>", opts)
 keymap("n", "<A-t>", "<c-]>", opts)
 
 -- Compilation (quickfix)
-local function build_debug_project()
-  vim.opt.makeprg = "./build.sh"
+
+-- @Todo: Be able to specify the makeprg during runtime via `change_makeprg()` or something.
+vim.opt.makeprg = "./build.sh"
+local function build_project()
   vim.cmd('wa | silent make')
 end
-vim.keymap.set("n", "<cr>", build_debug_project)
-vim.keymap.set('n', '<A-n>', '<cmd>cnext<CR>')
-vim.keymap.set('n', '<A-p>', '<cmd>cprev<CR>')
+vim.keymap.set("n", "<C-b>", build_project)
+vim.keymap.set("i", "<C-b>", function()
+	build_project();
+	local keys = vim.api.nvim_replace_termcodes("<esc>l", true, false, true)
+	vim.api.nvim_feedkeys(keys, "m", false)
+end)
+vim.keymap.set("n", "<A-n>", "<cmd>cnext<CR>")
+vim.keymap.set("n", "<A-p>", "<cmd>cprev<CR>")
