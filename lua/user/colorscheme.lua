@@ -16,3 +16,7 @@ if not ok then
   vim.notify("Failed to load colorscheme.")
   return
 end
+
+-- Set the status line to not be highlighted
+vim.cmd [[hi statusline guibg=#031C1F]]
+vim.cmd [[hi statusline guifg=#BDB395]]

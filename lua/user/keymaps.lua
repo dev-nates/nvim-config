@@ -28,6 +28,9 @@ keymap("n", "<A-l>", "<C-w>l", opts)
 -- Change <C-c> to escape
 keymap("n", "<C-c>", "<Esc>", opts)
 
+-- Enter can be used to save everything
+keymap("n", "<cr>", "<cmd>wa<cr>", opts)
+
 -- Scroll using J/K
 keymap("n", "<c-k>", "<c-y>", opts)
 keymap("n", "<c-j>", "<c-e>", opts)
