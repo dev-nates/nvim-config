@@ -18,5 +18,8 @@ if not ok then
 end
 
 -- Set the status line to not be highlighted
-vim.cmd [[hi statusline guibg=#031C1F]]
+-- vim.cmd [[hi statusline guibg=#031C1F]]
+
+vim.cmd [[hi statusline guibg=none]]
 vim.cmd [[hi statusline guifg=#BDB395]]
+vim.cmd [[hi Normal ctermbg=none guibg=none]]

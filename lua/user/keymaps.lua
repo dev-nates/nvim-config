@@ -38,6 +38,12 @@ keymap("n", "<c-j>", "<c-e>", opts)
 -- Switch to visual mode using space
 keymap("n", " ", "v", opts)
 
+-- Make D and d the same in visual mode
+-- D deletes lines rather that the selected text for (visual select)
+-- Since there's visual line mode, I figure I don't need this.
+keymap("v", "D", "d", opts)
+keymap("v", "C", "c", opts)
+
 -- Unbind weird key
 keymap("i", "<C-space>", "<space>", opts)
 
@@ -54,9 +60,6 @@ keymap({ "n", "v", "x" }, "<S-l>", "g_", opts)
 -- Make it easier to use j/k jumps for my keyboard layout.
 keymap({ "n", "v", "x" }, "(", "k", opts)
 keymap({ "n", "v", "x" }, ")", "j", opts)
-
--- Stop highlight
-keymap("n", "\\", "<cmd>noh<cr>", opts)
 
 -- Insert --
 keymap("i", "<C-c>", "<Esc>", opts)
@@ -104,18 +107,39 @@ keymap("n", "<leader>f", "<cmd>NvimTreeToggle<cr>", opts)
 keymap("n", "<leader>u", "<cmd>UndotreeToggle<cr>", opts)
 
 -- Comment box
-keymap({ "n", "v", "x" }, "<leader>cb", "<cmd>CBclbox<cr>vip=<esc>", opts)
+	keymap({ "n", "v", "x" }, "<leader>cb", "<cmd>CBclbox<cr>vip=<esc>", opts)
 keymap({ "n", "v", "x" }, "<leader>ch", "<cmd>CBllline<cr>V=<esc>", opts)
 
 -- Ctags
 keymap("n", "<A-t>", "<c-]>", opts)
+-- @Todo: Keymap for generating tags
 
 -- Compilation (quickfix)
 
 -- @Todo: Be able to specify the makeprg during runtime via `change_makeprg()` or something.
 vim.opt.makeprg = "./build.sh"
 local function build_project()
-  vim.cmd('wa | silent make')
+	vim.cmd('wa')
+	-- vim.cmd('silent make')
+
+	-- -------------------------------------------------------------------------------------------------
+	-- Run build script
+	local tmp = "/tmp/nvim_cfile.txt"
+	local output = vim.fn.system('./build.sh')
+	local lines = vim.split(output, '\n')
+	local status = vim.v.shell_error
+	vim.fn.writefile(lines, tmp)
+
+	-- -------------------------------------------------------------------------------------------------
+	-- Open qflist if there are errors, else close the list.
+	if status ~= 0 then
+		vim.cmd('copen')
+		vim.cmd('cfile ' .. tmp)
+	else
+		vim.fn.setqflist({}, ' ', {lines=lines})
+		vim.cmd('cclose')
+		print('COMPILE SUCCESS')
+	end
 end
 vim.keymap.set("n", "<C-b>", build_project)
 vim.keymap.set("i", "<C-b>", function()
@@ -123,5 +147,34 @@ vim.keymap.set("i", "<C-b>", function()
 	local keys = vim.api.nvim_replace_termcodes("<esc>l", true, false, true)
 	vim.api.nvim_feedkeys(keys, "m", false)
 end)
-vim.keymap.set("n", "<A-n>", "<cmd>cnext<CR>")
-vim.keymap.set("n", "<A-p>", "<cmd>cprev<CR>")
+
+vim.api.nvim_create_user_command('CNext', function()
+	local ok = pcall(vim.cmd, 'cnext')
+	if not ok then
+		vim.cmd('cfirst')
+	end
+end, {})
+vim.api.nvim_create_user_command('CPrev', function()
+	local ok = pcall(vim.cmd, 'cprev')
+	if not ok then
+		vim.cmd('clast')
+	end
+end, {})
+vim.keymap.set("n", "<A-n>", "<cmd>CNext<CR>")
+vim.keymap.set("n", "<A-p>", "<cmd>CPrev<CR>")
+
+-- -------------------------------------------------------------------------------------------------
+-- HLSearch toggle
+
+-- local hl_search_toggle = false
+-- local function toggle_hl_search() 
+-- 	if hl_search_toggle then
+-- 		vim.cmd('set hlsearch')
+-- 	else
+-- 		vim.cmd('set nohlsearch')
+-- 	end
+-- 	hl_search_toggle = not hl_search_toggle
+-- end
+-- keymap("n", "\\", toggle_hl_search, opts)
+keymap("n", "\\", "<cmd>noh<cr>", opts)
+

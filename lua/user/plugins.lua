@@ -46,11 +46,12 @@ return packer.startup(function(use)
   use "nvim-lua/plenary.nvim" -- Useful lua functions used by lots of plugins
 
   -- Completion
-  --use "hrsh7th/nvim-cmp"
-  --use 'L3MON4D3/LuaSnip'
+  -- use "hrsh7th/nvim-cmp"
+  -- use 'L3MON4D3/LuaSnip'
 
-  --use 'hrsh7th/cmp-buffer'
-  --use 'hrsh7th/cmp-path'
+  -- use 'hrsh7th/cmp-buffer'
+  -- use 'quangnguyen30192/cmp-nvim-tags'
+  -- use 'hrsh7th/cmp-path'
   -- use 'hrsh7th/cmp-cmdline'
   -- use "saadparwaiz1/cmp_luasnip" -- snippet completions
   -- use "hrsh7th/cmp-nvim-lsp"
@@ -73,6 +74,11 @@ return packer.startup(function(use)
     run = ":TSUpdate",
   }
 
+  -- More motions!! [Targets.vim]
+  use 'wellle/targets.vim'
+
+  -- Scroll-off EOF fix
+  use 'Aasim-A/scrollEOF.nvim'
 
   -- Harpoon (Thank you Sensei)
   use {
@@ -90,32 +96,6 @@ return packer.startup(function(use)
 
   -- UFO Code folding
   use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
-
-  use {
-	  "windwp/nvim-autopairs",
-	  event = "InsertEnter",
-	  config = function()
-		  require("nvim-autopairs").setup ({
-			  enabled = function(bufnr) return true end, -- control if auto-pairs should be enabled when attaching to a buffer
-			  disable_filetype = { "TelescopePrompt", "spectre_panel", "snacks_picker_input" },
-			  disable_in_macro = true, -- disable when recording or executing a macro
-			  disable_in_visualblock = false, -- disable when insert after visual block mode
-			  disable_in_replace_mode = true,
-			  ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
-			  enable_moveright = true,
-			  enable_afterquote = true, -- add bracket pairs after quote
-			  enable_check_bracket_line = true, --- check bracket in same line
-			  enable_bracket_in_quote = true, --
-			  enable_abbr = false, -- trigger abbreviation
-			  break_undo = true, -- switch for basic rule break undo sequence
-			  check_ts = false,
-			  map_cr = true,
-			  map_bs = true, -- map the <BS> key
-			  map_c_h = true, -- Map the <C-h> key to delete a pair
-			  map_c_w = true, -- map <c-w> to delete a pair if possible
-		  })
-	  end
-  }
 
   -- Comments
   use {

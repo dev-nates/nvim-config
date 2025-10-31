@@ -105,14 +105,6 @@ _G.packer_plugins = {
     path = "/home/nates/.local/share/nvim/site/pack/packer/start/naysayer",
     url = "https://github.com/alljokecake/naysayer-theme.nvim"
   },
-  ["nvim-autopairs"] = {
-    config = { "\27LJ\2\n\15\0\1\2\0\0\0\2+\1\2\0L\1\2\0Ä\3\1\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0003\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\21disable_filetype\1\4\0\0\20TelescopePrompt\18spectre_panel\24snacks_picker_input\fenabled\1\0\17\21enable_moveright\2\rcheck_ts\1\15break_undo\2\22ignored_next_char\23[%w%%%'%[%\"%.%`%$]\28disable_in_replace_mode\2\27disable_in_visualblock\1\21disable_in_macro\2\fenabled\0\21disable_filetype\0\vmap_cr\2\fmap_c_w\2\fmap_c_h\2\vmap_bs\2\16enable_abbr\1\28enable_bracket_in_quote\2\30enable_check_bracket_line\2\22enable_afterquote\2\0\nsetup\19nvim-autopairs\frequire\0" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/nates/.local/share/nvim/site/pack/packer/opt/nvim-autopairs",
-    url = "https://github.com/windwp/nvim-autopairs"
-  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/home/nates/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
@@ -148,6 +140,16 @@ _G.packer_plugins = {
     path = "/home/nates/.local/share/nvim/site/pack/packer/start/promise-async",
     url = "https://github.com/kevinhwang91/promise-async"
   },
+  ["scrollEOF.nvim"] = {
+    loaded = true,
+    path = "/home/nates/.local/share/nvim/site/pack/packer/start/scrollEOF.nvim",
+    url = "https://github.com/Aasim-A/scrollEOF.nvim"
+  },
+  ["targets.vim"] = {
+    loaded = true,
+    path = "/home/nates/.local/share/nvim/site/pack/packer/start/targets.vim",
+    url = "https://github.com/wellle/targets.vim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/nates/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -165,13 +167,6 @@ time([[Defining packer_plugins]], false)
 time([[Config for Comment.nvim]], true)
 try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
 time([[Config for Comment.nvim]], false)
-vim.cmd [[augroup packer_load_aucmds]]
-vim.cmd [[au!]]
-  -- Event lazy-loads
-time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'nvim-autopairs'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
-time([[Defining lazy-load event autocommands]], false)
-vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
