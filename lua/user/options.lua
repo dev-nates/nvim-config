@@ -25,7 +25,7 @@ local options = {
   writebackup = false,                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
   expandtab = false,                       -- convert tabs to spaces
   shiftwidth = 0,                          -- the number of spaces inserted for each indentation
-  tabstop = 1,                             -- insert N spaces for a tab
+  tabstop = 2,                             -- insert N spaces for a tab
   cursorline = false,                      -- highlight the current line
   number = false,                          -- set numbered lines
   relativenumber = true,                   -- set relative numbered lines
@@ -33,7 +33,7 @@ local options = {
   signcolumn = "no",                       -- always show the sign column, otherwise it would shift the text each time
   laststatus = 3,                          -- Status line
   wrap = false,                            -- display lines as one long line
-  scrolloff = 20,                           -- is one of my fav
+  scrolloff = 6,
   sidescrolloff = 12,
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
 }

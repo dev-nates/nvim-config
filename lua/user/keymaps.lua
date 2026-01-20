@@ -25,6 +25,8 @@ keymap("n", "<A-h>", "<C-w>h", opts)
 keymap("n", "<A-k>", "<C-w>k", opts)
 keymap("n", "<A-l>", "<C-w>l", opts)
 
+keymap("n", "<A-c>", "<C-w>q", opts)
+
 -- Change <C-c> to escape
 keymap("n", "<C-c>", "<Esc>", opts)
 
@@ -114,18 +116,36 @@ keymap({ "n", "v", "x" }, "<leader>ch", "<cmd>CBllline<cr>V=<esc>", opts)
 keymap("n", "<A-t>", "<c-]>", opts)
 -- @Todo: Keymap for generating tags
 
+-- Barbar
+--[[
+keymap("n", "<A-x>", "<cmd>BufferClose<cr>", opts)
+
+keymap("n", "<A-g>", "<cmd>BufferPrevious<cr>", opts)
+keymap("n", "<A-c>", "<cmd>BufferNext<cr>", opts)
+
+keymap("n", "<A-,>", "<cmd>BufferMovePrevious<cr>", opts)
+keymap("n", "<A-.>", "<cmd>BufferMoveNext<cr>", opts)
+]]--
+
+-- -------------------------------------------------------------------------------------------------
 -- Compilation (quickfix)
 
 -- @Todo: Be able to specify the makeprg during runtime via `change_makeprg()` or something.
-vim.opt.makeprg = "./build.sh"
+local build_string = "./build.sh"
+local function change_build_string()
+	build_string = vim.fn.input("Set build string:")
+end
+keymap("n", "<leader>b", change_build_string, opts)
+
 local function build_project()
 	vim.cmd('wa')
+	-- vim.opt.makeprg = "./build.sh"
 	-- vim.cmd('silent make')
 
 	-- -------------------------------------------------------------------------------------------------
 	-- Run build script
 	local tmp = "/tmp/nvim_cfile.txt"
-	local output = vim.fn.system('./build.sh')
+	local output = vim.fn.system(build_string)
 	local lines = vim.split(output, '\n')
 	local status = vim.v.shell_error
 	vim.fn.writefile(lines, tmp)
@@ -133,14 +153,18 @@ local function build_project()
 	-- -------------------------------------------------------------------------------------------------
 	-- Open qflist if there are errors, else close the list.
 	if status ~= 0 then
+		local current = vim.api.nvim_get_current_win()
 		vim.cmd('copen')
 		vim.cmd('cfile ' .. tmp)
+		vim.api.nvim_set_current_win(current)
+		vim.cmd('cfirst')
 	else
 		vim.fn.setqflist({}, ' ', {lines=lines})
 		vim.cmd('cclose')
 		print('COMPILE SUCCESS')
 	end
 end
+
 vim.keymap.set("n", "<C-b>", build_project)
 vim.keymap.set("i", "<C-b>", function()
 	build_project();

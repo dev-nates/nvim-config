@@ -74,11 +74,13 @@ return packer.startup(function(use)
     run = ":TSUpdate",
   }
 
+	use "nvim-treesitter/nvim-treesitter-context"
+
   -- More motions!! [Targets.vim]
-  use 'wellle/targets.vim'
+  use "wellle/targets.vim"
 
   -- Scroll-off EOF fix
-  use 'Aasim-A/scrollEOF.nvim'
+  use "Aasim-A/scrollEOF.nvim"
 
   -- Harpoon (Thank you Sensei)
   use {
@@ -88,6 +90,7 @@ return packer.startup(function(use)
   }
 
   -- Nvim Tree
+	-- use 'lewis6991/gitsigns.nvim'
   use "nvim-tree/nvim-tree.lua"
   use "nvim-tree/nvim-web-devicons"
 
@@ -95,21 +98,24 @@ return packer.startup(function(use)
   use "mbbill/undotree"
 
   -- UFO Code folding
-  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+  use {"kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async"}
 
   -- Comments
   use {
-	  'numToStr/Comment.nvim',
+	  "numToStr/Comment.nvim",
 	  config = function()
 		  require('Comment').setup()
 	  end
   }
 
+	-- Tab bars
+	-- use 'romgrk/barbar.nvim'
+
   -- Comment Box
   use "LudoPinelli/comment-box.nvim"
 
   -- Colorscheme
-  use ({'alljokecake/naysayer-theme.nvim', as = 'naysayer'})
+  use ({"alljokecake/naysayer-theme.nvim", as = 'naysayer'})
 
   --[[
   use { 
@@ -125,10 +131,10 @@ return packer.startup(function(use)
   ]]
 
   -- Indent guides
-  use { 'lukas-reineke/indent-blankline.nvim' }
+  use { "lukas-reineke/indent-blankline.nvim" }
 
   -- Align
-  use { 'https://github.com/echasnovski/mini.align'	}
+  use { "https://github.com/echasnovski/mini.align"	}
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
