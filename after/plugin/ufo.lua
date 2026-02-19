@@ -1,4 +1,3 @@
-
 local status_ok, ufo = pcall(require, "ufo")
 if not status_ok then
 	return
@@ -61,4 +60,4 @@ local opts = {
 }
 ufo.setup(opts)
 
-vim.cmd [[hi UfoFoldedBg guibg=NONE]]
+-- vim.cmd [[hi UfoFoldedBg guibg=NONE]]

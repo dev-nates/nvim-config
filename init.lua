@@ -1,18 +1,11 @@
 
 require "user.options"
 require "user.keymaps"
-require "user.plugins"
+require "user.quickfix"
+require "plugin_manager" -- Lazy plugin manager
 require "user.colorscheme"
--- require "user.cmp"
--- require "user.lsp"
-require "user.telescope"
-require "user.treesitter"
-require "user.harpoon"
-require "user.nvim-tree"
-require "user.nvim-ufo"
-require "user.cbox"
-require "user.indent-guides"
-require "user.mini-align"
-require "user.scroll-eof"
-require "user.treesitter-context"
--- require "user.barbar"
+
+-- Snippets
+require "user.snips.lua"
+require "user.snips.odin"
+require "user.snips.all"

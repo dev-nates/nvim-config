@@ -1,4 +1,5 @@
 
+
 local options = {
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
@@ -26,7 +27,7 @@ local options = {
   expandtab = false,                       -- convert tabs to spaces
   shiftwidth = 0,                          -- the number of spaces inserted for each indentation
   tabstop = 2,                             -- insert N spaces for a tab
-  cursorline = false,                      -- highlight the current line
+  cursorline = true,                      -- highlight the current line
   number = false,                          -- set numbered lines
   relativenumber = true,                   -- set relative numbered lines
   numberwidth = 4,                         -- set number column width to 2 {default 4}

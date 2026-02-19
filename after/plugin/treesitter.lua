@@ -1,22 +1,19 @@
-
-
 local parsers = {
-  "cpp", "c", "odin", "lua", "luadoc", "bash", "nasm", "gitignore", "typescript", "css", "html", "json",
-  "glsl", "hlsl", "tmux", "toml", "markdown", "yaml", "xml", "vimdoc",
+	"c", "odin", "lua", "nasm", "luadoc", "glsl", "slang", "markdown"
 }
 
-local configs = require("nvim-treesitter.configs")
-configs.setup {
-  ensure_installed = parsers,
-  sync_install = false, 
-  ignore_install = { "" }, -- List of parsers to ignore installing
-  highlight = {
-    enable = true, -- false will disable the whole extension
-    disable = { "c", "cpp", "odin" }, -- list of language that will be disabled
-    additional_vim_regex_highlighting = false,
-  },
-  indent = { enable = false, disable = { "yaml" } },
-}
+local disabled = {}
+require"nvim-treesitter.configs".setup({
+	ensure_installed = parsers,
+	sync_install = false, 
+	ignore_install = {}, -- List of parsers to ignore installing
+	highlight = {
+		enable = false, -- false will disable the whole extension
+		disable = { "odin" }, -- list of language that will be disabled
+		additional_vim_regex_highlighting = false,
+	},
+	indent = { enable = false, disable = { "yaml" } },
+})
 
 -- Code folding
 

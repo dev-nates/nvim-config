@@ -6,7 +6,6 @@ end
 -- telescope.load_extension('media_files')
 
 local actions = require "telescope.actions"
-
 telescope.setup {
   defaults = {
 

@@ -5,7 +5,6 @@ vim.g.loaded_netrwPlugin = 1
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
-
 local function nvim_tree_on_attach(bufnr)
 	local api = require "nvim-tree.api"
 
@@ -18,7 +17,7 @@ local function nvim_tree_on_attach(bufnr)
 
 	-- custom mappings
 	vim.keymap.set("n", "_", api.tree.change_root_to_node, opts("Up"))
-	vim.keymap.set("n", "?", api.tree.toggle_help,           opts("Help"))
+	vim.keymap.set("n", "?", api.tree.toggle_help,         opts("Help"))
 end
 
 -- OR setup with some options

@@ -41,5 +41,4 @@ local opts = {
     ---Function to call after (un)comment
     post_hook = nil,
 }
-
 require('Comment').setup(opts)
