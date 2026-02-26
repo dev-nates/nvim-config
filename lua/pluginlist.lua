@@ -15,13 +15,13 @@ return {
 	{ "mbbill/undotree" },
 
 	-- Tree-Sitter
-	{
-		'nvim-treesitter/nvim-treesitter',
-		lazy = false,
-		branch='master',
-		build=':TSUpdate',
-	},
-	{ "nvim-treesitter/nvim-treesitter-context" },
+	-- {
+	-- 	'nvim-treesitter/nvim-treesitter',
+	-- 	lazy = false,
+	-- 	branch='master',
+	-- 	build=':TSUpdate',
+	-- },
+	-- { "nvim-treesitter/nvim-treesitter-context" },
 
 	-- Ufo Code Folding
   {

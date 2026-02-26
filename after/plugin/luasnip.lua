@@ -12,13 +12,13 @@ ls.config.set_config({
 	history = false,
 	update_events = "TextChanged,TextChangedI",
 
-	ext_opts = {
-		[types.choiceNode] = {
-			active = {
-				virt_text = {{ "<-" }},
-			},
-		},
-	},
+	-- ext_opts = {
+	-- 	[types.choiceNode] = {
+	-- 		active = {
+	-- 			virt_text = {{ "<-" }},
+	-- 		},
+	-- 	},
+	-- },
 })
 
 -- -------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ keymap({"i", "s"}, "<C-p>", function()
 		ls.jump(-1)
 	end
 end, opts)
-keymap({"i", "s"}, "<C-t>", function()
+keymap({"i", "s"}, "<C-g>", function()
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end

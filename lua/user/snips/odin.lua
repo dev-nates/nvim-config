@@ -2,9 +2,6 @@
 local ls = require "luasnip"
 local procs = require "user.snips.procs"
 
-local keymap = vim.keymap.set
-keymap("n", "<leader>l", "<cmd>source ~/.config/nvim/lua/user/snips/odin.lua<cr>")
-
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
@@ -166,7 +163,7 @@ local odin_result_type = function(info)
 end
 
 local odin_return_values = function(args)
-	return sn(nil, odin_result_type({ index = 1, err_name = value_list_last_item(args[1][1]), proc_name = args[2][1] }))
+	return sn(nil, odin_result_type({ index = 1 }))
 end
 
 -- -------------------------------------------------------------------------------------------------
@@ -208,7 +205,7 @@ ls.add_snippets("odin", {
 		)
 	),
 
-	s("structn",
+	s("snode",
 		fmta(
 			[[
 			<name> :: struct {
@@ -240,13 +237,22 @@ ls.add_snippets("odin", {
 	),
 
 	s("forn",
-		fmta(
-			[[
-			for <node> := <val>; <node0> != nil; <node1> = <node2>.<next> {
-				<body>
-			}
-			]], {node=i(1), val=i(2), node0=rep(1), node1=rep(1), node2=rep(1), next=i(3, "next"), body=i(0)}
-		)
+		c(1, {
+			fmta(
+				[[
+				for <node> := <head>; !base.chknil(<node0>, <nilv>); <node1> = <node2>.<next> {
+					<body>
+				}
+				]], {node=i(1, "node"), head=i(2, "head"), node0=rep(1), nilv=i(3, "nil"), node1=rep(1), node2=rep(1), next=i(4, "next"), body=i(5)}
+			),
+			fmta(
+				[[
+				for <node> := <head>; !base.chknil(<node0>, <nilv>); {
+					<body>
+				}
+				]], {node=i(1, "node"), head=i(2, "head"), node0=rep(1), nilv=i(3, "nil"), body=i(4)}
+			),
+		})
 	),
 
 	s("forcn",
@@ -271,7 +277,37 @@ ls.add_snippets("odin", {
 
 	-- -------------------------------------------------------------------------------------------------
 	-- #arena
-	s("ps",
+	s("psize",
+		c(1, {
+			fmta(
+				[[
+				<var> := mem.push_size(<size>, <arena>)
+				]], {var=i(1), size=i(2, "size"), arena=i(3, "arena")}
+			),
+			fmta(
+				[[
+				<var> = mem.push_size(<size>, <arena>)
+				]], {var=i(1), size=i(2, "size"), arena=i(3, "arena")}
+			)
+		})
+	),
+	s("psizenz",
+		c(1, {
+			fmta(
+				[[
+				<var> := mem.push_size_no_zero(<size>, <arena>)
+				]], {var=i(1), size=i(2, "size"), arena=i(3, "arena")}
+			),
+			fmta(
+				[[
+				<var> = mem.push_size_no_zero(<size>, <arena>)
+				]], {var=i(1), size=i(2, "size"), arena=i(3, "arena")}
+			)
+		})
+	),
+
+
+	s("pstruct",
 		c(1, {
 			fmta(
 				[[
@@ -285,7 +321,7 @@ ls.add_snippets("odin", {
 			)
 		})
 	),
-	s("psn",
+	s("pstructnz",
 		c(1, {
 			fmta(
 				[[
@@ -300,7 +336,7 @@ ls.add_snippets("odin", {
 		})
 	),
 
-	s("pa",
+	s("parray",
 		c(1, {
 			fmta(
 				[[
@@ -314,7 +350,7 @@ ls.add_snippets("odin", {
 			)
 		})
 	),
-	s("pan",
+	s("parraynz",
 		c(1, {
 			fmta(
 				[[
@@ -330,308 +366,51 @@ ls.add_snippets("odin", {
 	),
 
 	-- -------------------------------------------------------------------------------------------------
-	-- #stack
-	
-	s("stkpush",
-		fmta(
-			[[
-			<node>.<next> = <head>; <head0> = <node0>
-			]], {node=i(1, "node"), next=i(2, "next"), head=i(3, "head"), head0=rep(3), node0=rep(1)}
-		)
-	),
-
-	s("stkpushc",
-		fmta(
-			[[
-			<node>.<next> = <head>; <head0> = <node0>
-			<count> += 1
-			]], {node=i(1, "node"), next=i(2, "next"), head=i(3, "head"), head0=rep(3), node0=rep(1), count=i(4, "count")}
-		)
-	),
-
-	s("stkpop",
-		fmta(
-			[[
-			<head> = <head0>.<next>
-			]], {head=i(1, "head"), head0=rep(1), next=i(2, "next") }
-		)
-	),
-
-	s("stkpopc",
-		fmta(
-			[[
-			<head> = <head0>.<next>
-			<count> -= 1
-			]], {head=i(1, "head"), head0=rep(1), next=i(2,"next"), count=i(3, "count")}
-		)
-	),
-
-	s("flpush",
-		fmta(
-			[[
-			<node>.<next> = <freelist>; <freelist0> = <node0>
-			sanitizer.address_poison(<node1>)
-			]], {node=i(1, "node"), next=i(2, "next"), freelist=i(3, "freelist"), freelist0=rep(3), node0=rep(1), node1=rep(1)}
-		)
-	),
-
-	s("flpop",
-		c(1, {
-			fmta(
-				[[
-				<assign>
-				sanitizer.address_unpoison(<assign0>)
-				<freelist> = <freelist0>.next
-				]], {assign=i(1, "node := freelist"),
-				assign0=f(function(assign)
-					local parts = vim.split(assign[1][1], " ", true)
-					return parts[1]
-				end, {1}),
-				freelist=i(2, "freelist"), freelist0=rep(2)}
-			),
-			fmta(
-				[[
-				sanitizer.address_unpoison(<node>)
-				<freelist> = <freelist0>.next
-				]], { node=i(1), freelist=i(2, "freelist"), freelist0=rep(2)}
-			),
-		})
-	),
-
-	s("flpopc",
-		c(1, {
-			fmta(
-				[[
-				<assign>
-				sanitizer.address_unpoison(<assign0>)
-				<freelist> = <freelist0>.next
-				<count> -= 1
-				]], {assign=i(1, "node := freelist"),
-				assign0=f(function(assign)
-					local parts = vim.split(assign[1][1], " ", true)
-					return parts[1]
-				end, {1}),
-				freelist=i(2, "freelist"), freelist0=rep(2), count=i(3, "count")}
-			),
-			fmta(
-				[[
-				sanitizer.address_unpoison(<node>)
-				<freelist> = <freelist0>.next
-				<count> -= 1
-				]], { node=i(1), freelist=i(2, "freelist"), freelist0=rep(2), count=i(3, "count")}
-			),
-		})
-	),
-
-	-- -------------------------------------------------------------------------------------------------
-	-- #linked list
-	
-	s("ptr",
-		fmt(
-			[[
-			{} := ({} == nil) ? &{} : &{}.{}
-			]], {i(1, "ptr"), i(2, "head"), rep(2), i(3, "tail"), i(4, "next") }
-		)
-	),
-	s("ptrnext",
-		fmta(
-			[[
-			<ptr> = <node>.<next>
-			]], {ptr=i(1, "ptr"), node=i(2, "node"), next=i(3, "next")}
-		)
-	),
-
-	s("spush",
-		fmta(
-			[[
-			<ptr>^, <tail> = <node>, <node0>
-			<node1>.<next> = <nilv>
-			]], {ptr=i(1, "ptr"), tail=i(2, "tail"), node=i(3, "node"), node0=rep(3), node1=rep(3), next=i(4, "next"), nilv=i(5, "nil")}
-		)
-	),
-
-	s("spushc",
-		fmta(
-			[[
-			<ptr>^, <tail> = <node>, <node0>
-			<node1>.<next> = <nilv>
-			<count> += 1
-			]], {ptr=i(1, "ptr"), tail=i(2, "tail"), node=i(3, "node"), node0=rep(3), node1=rep(3), next=i(4, "next"), nilv=i(5, "nil"), count=i(6, "count")}
-		)
-	),
-
-	s("spushfront",
-		fmta(
-			[[
-			<node>.<next> = <head>
-			<head0> = <node0>
-			]], {node=i(1, "node"), next=i(2, "next"), head=i(3, "head"), head0=rep(3), node0=rep(1)}
-		)
-	),
-
-	s("spushfrontc",
-		fmta(
-			[[
-			<node>.<next> = <head>
-			<head0> = <node0>
-			<count> += 1
-			]], {node=i(1, "node"), next=i(2, "next"), head=i(3, "head"), head0=rep(3), node0=rep(1), count=i(4, "count")}
-		)
-	),
-
-	s("spopfront",
-		fmta(
-			[[
-			<head> = <head0>.<next>
-			]], {head=i(1, "head"), head0=rep(1), next=i(2,"next")}
-		)
-	),
-	s("spopfrontc",
-		fmta(
-			[[
-			<head> = <head0>.<next>
-			<count> -= 1
-			]], {head=i(1, "head"), head0=rep(1), next=i(2,"next"), count=i(3,"count")}
-		)
-	),
-
-	s("dpush",
-		fmta(
-			[[
-			<node>.<prev>, <node0>.<next> = <tail>, <nilv>
-			<ptr>^, <tail0> = <node1>, <node2>
-			]], {
-				node=i(1, "node"), prev=i(2, "prev"), node0=rep(1), next=i(3, "next"),
-				tail=i(4, "tail"), nilv=i(5, "nil"),
-				ptr=i(6, "ptr"), tail0=rep(4), node1=rep(1), node2=rep(1)
-			}
-		)
-	),
-
-	s("dpushc",
-		fmta(
-			[[
-			<node>.<prev>, <node0>.<next> = <tail>, <nilv>
-			<ptr>^, <tail0> = <node1>, <node2>
-			<count> += 1
-			]], {
-				node=i(1, "node"), prev=i(2, "prev"), node0=rep(1), next=i(3, "next"),
-				tail=i(4, "tail"), nilv=i(5, "nil"),
-				ptr=i(6, "ptr"), tail0=rep(4), node1=rep(1), node2=rep(1), count=i(7, "count")
-			}
-		)
-	),
-
-	s("dpushfront",
-		fmta(
-			[[
-			<node>.<prev>, <node0>.<next> = <nilv>, <head>
-			<head0> = <node0>
-			]], {node=i(1, "node"), prev=i(2, "prev"), next=i(3, "next"), nilv=i(4, "nil"), head=i(5, "head"), head0=rep(5), node0=rep(1)}
-		)
-	),
-	s("dpushfrontc",
-		fmta(
-			[[
-			<node>.<prev>, <node0>.<next> = <nilv>, <head>
-			<head0> = <node0>
-			<count> += 1
-			]], {node=i(1, "node"), prev=i(2, "prev"), next=i(3, "next"), nilv=i(4, "nil"), head=i(5, "head"), head0=rep(5), node0=rep(1), count=i(6, "count")}
-		)
-	),
-
-	s("dremove",
-		fmta(
-			[[
-			if <head> == <tail> {
-				<head0>, <tail0> = <nilv>, <nilv0>
-			} else if <head1> == <node> {
-				<head2> = <head3>.<next>
-				<head4>.<prev> = <nilv1>
-			} else if <tail1> == <node0> {
-				<tail2> = <tail3>.<prev0>
-				<tail4>.<next0> = <nilv2>
-			} else {
-				next := <node1>.<next1>; prev := <node2>.<prev1>
-				if next != nil { next.<prev2> = prev }
-				if prev != nil { prev.<next2> = next }
-			}
-			]], { head=i(1, "head"), head0=rep(1),head1=rep(1),head2=rep(1),head3=rep(1),head4=rep(1),
-				tail=i(2, "tail"), tail0=rep(2),tail1=rep(2),tail2=rep(2),tail3=rep(2),tail4=rep(2),
-				nilv=i(3, "nil"), nilv0=rep(3),nilv1=rep(3),nilv2=rep(3),
-				node=i(4, "node"), node0=rep(4),node1=rep(4),node2=rep(4),
-				next=i(5, "next"), next0=rep(5),next1=rep(5),next2=rep(5),
-				prev=i(6, "prev"), prev0=rep(6),prev1=rep(6),prev2=rep(6),
-			}
-		)
-	),
-
-	s("dremovec",
-		fmta(
-			[[
-			if <head> == <tail> {
-				<head0>, <tail0> = <nilv>, <nilv0>
-			} else if <head1> == <node> {
-				<head2> = <head3>.<next>
-				<head4>.<prev> = <nilv1>
-			} else if <tail1> == <node0> {
-				<tail2> = <tail3>.<prev0>
-				<tail4>.<next0> = <nilv2>
-			} else {
-				next := <node1>.<next1>; prev := <node2>.<prev1>
-				if next != nil { next.<prev2> = prev }
-				if prev != nil { prev.<next2> = next }
-			}
-			<count> -= 1
-			]], { head=i(1, "head"), head0=rep(1),head1=rep(1),head2=rep(1),head3=rep(1),head4=rep(1),
-				tail=i(2, "tail"), tail0=rep(2),tail1=rep(2),tail2=rep(2),tail3=rep(2),tail4=rep(2),
-				nilv=i(3, "nil"), nilv0=rep(3),nilv1=rep(3),nilv2=rep(3),
-				node=i(4, "node"), node0=rep(4),node1=rep(4),node2=rep(4),
-				next=i(5, "next"), next0=rep(5),next1=rep(5),next2=rep(5),
-				prev=i(6, "prev"), prev0=rep(6),prev1=rep(6),prev2=rep(6),
-				count=i(7,"count")
-			}
-		)
-	),
-
-	-- -------------------------------------------------------------------------------------------------
 	-- # procedure with automatic error returning
-	s("perr",
-		fmta(
-			[[
-			<value_list> := <proc>(<args>)
-			if <err0> != nil {
-				return <result>
-			}
-			<finish>
-			]], {
-				value_list = i(1),
-				proc = i(2, "procedure"),
-				args = i(3, "args"),
-				err0 = f(function(value_list) return value_list_last_item(value_list[1][1]) end, {1}),
-				result = d(4, odin_return_values, {1, 2}),
-				finish = i(0),
-			}
-		)
-	),
-	s("ifperr",
-		fmta(
-			[[
-			if <value_list> := <proc>(<args>); <condition> {<body>
-				return <result>
-			}
-			]], {
-				value_list = i(1),
-				proc = i(2, "procedure"),
-				args = i(3, "args"),
-				condition = d(4, function(value_list)
-					return sn(nil, i(1, value_list_last_item(value_list[1][1]) .. " != nil"))
-				end, {1}),
-				body = i(5),
-				result = d(6, odin_return_values, {1, 2}),
-			}
-		)
-	),
+
+	-- s("perr",
+	-- 	fmta(
+	-- 		[[
+	-- 		<value_list> := <proc>(<args>)
+	-- 		if <err0> != nil {
+	-- 			return <result>
+	-- 		}
+	-- 		<finish>
+	-- 		]], {
+	-- 			value_list = i(1),
+	-- 			proc = i(2, "procedure"),
+	-- 			args = i(3, "args"),
+	-- 			err0 = f(function(value_list) return value_list_last_item(value_list[1][1]) end, {1}),
+	-- 			result = d(4, odin_return_values, {1, 2}),
+	-- 			finish = i(0),
+	-- 		}
+	-- 	)
+	-- ),
+	-- s("ifperr",
+	-- 	fmta(
+	-- 		[[
+	-- 		if <value_list> := <proc>(<args>); <condition> {<body>
+	-- 			return <result>
+	-- 		}
+	-- 		]], {
+	-- 			value_list = i(1),
+	-- 			proc = i(2, "procedure"),
+	-- 			args = i(3, "args"),
+	-- 			condition = d(4, function(value_list)
+	-- 				return sn(nil, i(1, value_list_last_item(value_list[1][1]) .. " != nil"))
+	-- 			end, {1}),
+	-- 			body = i(5),
+	-- 			result = d(6, odin_return_values, {}),
+	-- 		}
+	-- 	)
+	-- ),
+	-- s("iferr",
+	-- 	fmta(
+	-- 		[[
+	-- 		if <cond> { return <result> }
+	-- 		]], { cond=i(1, "err != nil"), result=d(2, odin_return_values, {}) }
+	-- 	)
+	-- ),
 
 	-- -------------------------------------------------------------------------------------------------
 	-- #vulkan
