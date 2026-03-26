@@ -1,16 +1,17 @@
 
 local ls = require "luasnip"
 local types = require "luasnip.util.types"
+local ft = require "luasnip.extras.filetype_functions"
 require('luasnip.loaders.from_vscode').lazy_load()
 
 ls.cleanup()
-ls.config.setup {}
+ls.config.setup({})
 
 -- -------------------------------------------------------------------------------------------------
 -- Config
 ls.config.set_config({
 	history = false,
-	update_events = "TextChanged,TextChangedI",
+	-- update_events = "TextChanged,TextChangedI",
 
 	-- ext_opts = {
 	-- 	[types.choiceNode] = {

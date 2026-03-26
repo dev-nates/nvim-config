@@ -7,6 +7,7 @@ local t = ls.text_node
 local i = ls.insert_node
 local c = ls.choice_node
 local f = ls.function_node
+local r = ls.restore_node
 local d = ls.dynamic_node
 local sn = ls.snippet_node
 local extras = require("luasnip.extras")
@@ -39,11 +40,13 @@ local fmta = require("luasnip.extras.fmt").fmta
 -- -------------------------------------------------------------------------------------------------
 -- #lua
 ls.add_snippets("lua", {
-	s("req",
-		fmt([[local {} = require "{}"]], { f(function(import_name)
-			local parts = vim.split(import_name[1][1], ".", true)
-			return parts[#parts] or ""
-		end, {1}), i(1) })
+	s("req", c(1, {
+			fmta([[require "<file>"]], {file=i(1, "file")}),
+			fmta([[local <reflected> = require "<file>"]], { reflected=f(function(import_name)
+				local parts = vim.split(import_name[1][1], ".", true)
+				return parts[#parts] or ""
+			end, {1}), file=i(1) }),
+		})
 	),
 })
 

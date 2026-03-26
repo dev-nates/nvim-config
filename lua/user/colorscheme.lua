@@ -18,8 +18,39 @@ if not ok then
 end
 
 -- Set the status line to not be highlighted
--- vim.cmd [[hi statusline guibg=#031C1F]]
+vim.cmd [[hi statusline guibg=#031C1F]]
 
 vim.cmd [[hi statusline guibg=none]]
 vim.cmd [[hi statusline guifg=#BDB395]]
-vim.cmd [[hi Normal ctermbg=none guibg=none]]
+vim.cmd [[hi Normal ctermbg=none guibg=#031C1F]]
+
+-- vim.cmd [[hi @function guifg=#399578]]
+vim.cmd [[hi clear @property]]
+vim.cmd [[hi clear @type]]
+vim.cmd [[hi clear Type]]
+vim.cmd [[hi Type gui=bold]]
+
+vim.cmd [[hi @keyword.repeat gui=bold]]
+vim.cmd [[hi @keyword.return gui=bold]]
+vim.cmd [[hi @keyword.conditional gui=bold]]
+vim.cmd [[hi link @keyword.type @keyword.return]]
+
+vim.cmd [[hi @assert guifg=#b53d69]]
+vim.cmd [[hi @zero_struct guifg=#8c8677]]
+
+vim.cmd [[hi clear @variable.parameter]]
+
+
+local base = vim.api.nvim_get_hl(0, { name = "Keyword", link = false })
+base.bold = true
+-- base.fg = "#ff0000"  -- change what you want
+vim.api.nvim_set_hl(0, "@keyword.cast", base)
+
+base = vim.api.nvim_get_hl(0, { name = "Type", link = false })
+vim.api.nvim_set_hl(0, "@type.builtin", base)
+
+base = vim.api.nvim_get_hl(0, { name = "@function", link = false})
+base.bold = false
+vim.api.nvim_set_hl(0, "@nobold", base)
+
+-- vim.cmd [[hi link @type.builtin Type]]

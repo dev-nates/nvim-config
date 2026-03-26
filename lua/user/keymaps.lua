@@ -6,6 +6,9 @@ local keymap = vim.keymap.set
 vim.g.mapleader = "v"
 vim.g.maplocalleader = "v"
 
+-- Reload config
+keymap("n", "<leader>r", "<cmd>lua ReloadConfig()<CR>", { noremap = true, silent = false })
+
 -- Change <C-c> to escape
 keymap("n", "<C-c>", "<Esc>", opts)
 
@@ -13,18 +16,34 @@ keymap("n", "<C-c>", "<Esc>", opts)
 keymap("n", "<cr>", "<cmd>wa<cr>", opts)
 
 -- Set space to NOP (I forgot why I did this)
-keymap("", "<Space>", "<Nop>", opts)
--- Unbind weird key in insert mode
+-- keymap("", "<Space>", "<Nop>", opts)
 keymap("i", "<C-space>", "<space>", opts)
 
+-- Change insert mode indent keymap
+keymap("i", "<C-t>", "<nop>", opts)
+keymap("i", "<C-_>", "<C-t>", opts)
+
+-- Delete backwards by whitespace
+keymap("i", "<C-x>", "<C-o>dB", opts)
+keymap("i", "<C-backspace>", "<c-w>", opts)
+
+-- Bind helpful arrow key movements in insert mode
+keymap("i", "<S-Left>", "<C-o>B", opts)
+keymap("i", "<S-Right>", "<C-o>W", opts)
+keymap("n", "<S-Left>", "B", opts)
+keymap("n", "<S-Right>", "W", opts)
+
+keymap({ "n", "i" }, "<S-Up>", "<Up>", opts)
+keymap({ "n", "i" }, "<S-Down>", "<Down>", opts)
+
 -- Better window navigation
-keymap("n", "<A-j>", "<C-w>j", opts)
-keymap("n", "<A-h>", "<C-w>h", opts)
-keymap("n", "<A-k>", "<C-w>k", opts)
-keymap("n", "<A-l>", "<C-w>l", opts)
-keymap("n", "<A-c>", "<C-w>q", opts)
-keymap("n", "<A-g>", "<C-w>o", opts)
-keymap("n", "<A-s>", "<C-w>v", opts)
+keymap("n", "<A-S-j>", "<C-w>j", opts)
+keymap("n", "<A-S-h>", "<C-w>h", opts)
+keymap("n", "<A-S-k>", "<C-w>k", opts)
+keymap("n", "<A-S-l>", "<C-w>l", opts)
+keymap("n", "<A-S-c>", "<C-w>q", opts)
+keymap("n", "<A-S-x>", "<C-w>o", opts)
+keymap("n", "<A-S-s>", "<C-w>v", opts)
 
 -- Scroll using J/K
 keymap("n", "<c-k>", "<c-y>", opts)
@@ -41,14 +60,21 @@ keymap("v", "D", "d", opts)
 keymap("v", "C", "c", opts)
 
 -- Resize with arrows
-keymap("n", "<C-Up>", ":resize +2<CR>", opts)
-keymap("n", "<C-Down>", ":resize -2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+-- keymap("n", "<A-S-J>", ":resize +2<CR>", opts)
+-- keymap("n", "<A-S-K>", ":resize -2<CR>", opts)
+-- keymap("n", "<A-S-T>", ":vertical resize -2<CR>", opts)
+-- keymap("n", "<A-S-H>", ":vertical resize +2<CR>", opts)
 
 -- Goto Start/End of line keybinds
-keymap({ "n", "v", "x" }, "<S-h>", "_", opts)
-keymap({ "n", "v", "x" }, "<S-l>", "g_", opts)
+-- _ remains the same
+keymap({"n", "v"}, "<A-h>", "_", opts)
+keymap({"n", "v"}, "<A-l>", "g_", opts)
+
+
+-- Unmap these because of muscle memory
+keymap("n", "<S-h>", "<nop>", opts)
+keymap("n", "<S-t>", "<nop>", opts)
+
 
 -- Make it easier to use j/k to jump around with numbered jumps e.g. 5) will be 5k
 keymap({ "n", "v", "x" }, "(", "k", opts)
@@ -57,14 +83,12 @@ keymap({ "n", "v", "x" }, ")", "j", opts)
 -- Exit insert mode
 keymap("i", "<C-c>", "<Esc>", opts)
 
--- C-V paste in insert mode
-keymap("i", "<C-v>", "<Esc>pa", opts)
-
--- Rebind tab to tab-shift-line
-keymap("i", "<C-l>", "<C-t>", opts)
+-- A-P paste in insert mode
+keymap("i", "<A-cr>", "<cr>", opts)
+keymap("i", "<A-p>", "<Esc>pa", opts)
 
 -- Don't override register when pasting in visual mode
-keymap("v", "<c-p>", '"_dP', opts)
+-- keymap("v", "<c-p>", '"_dP', opts)
 
 -- Escape visual mode when pressing space
 keymap("v", " ", "<Esc>", opts)
@@ -80,9 +104,9 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Better terminal navigation
-keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
-keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
-keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
+-- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
+-- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
+-- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 
 -- Telescope
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-- keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
@@ -107,16 +131,19 @@ keymap({ "n", "v", "x" }, "<leader>cb", "<cmd>CBclbox<cr>vip=<esc>", opts)
 keymap({ "n", "v", "x" }, "<leader>ch", "<cmd>CBllline<cr>V=<esc>", opts)
 
 -- @Todo: Keymap for generating tag file
-
 -- Goto to tag under cursor
-keymap("n", "<A-t>", "<c-]>", opts)
+keymap("n", "<A-g>", "<c-]>", opts)
 
 -- Unhighlight
 keymap("n", "\\", "<cmd>noh<cr>", opts)
 
 -- Move up/down by scope
-keymap("n", "<A-5>", "[{")
-keymap("n", "<A-3>", "]}")
+keymap({ "n", "v" }, "{", "[{")
+keymap({ "n", "v" }, "}", "]}")
+
+-- Move up/down by paragraph
+keymap({"n", "v" }, "<A-5>", "{")
+keymap({"n", "v" }, "<A-3>", "}")
 
 -- Barbar
 --[[

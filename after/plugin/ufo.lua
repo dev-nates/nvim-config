@@ -55,7 +55,7 @@ end
 local opts = {
 	fold_virt_text_handler = handler,
 	provider_selector = function(bufnr, filetype, buftype)
-		return { "treesitter", "indent" }
+		return { --[[ "treesitter", ]] "indent" }
 	end
 }
 ufo.setup(opts)

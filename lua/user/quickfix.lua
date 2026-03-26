@@ -29,7 +29,7 @@ local function build_project()
 	-- Open qflist if there are errors, else close the list.
 	if status ~= 0 then
 		local current = vim.api.nvim_get_current_win()
-		vim.cmd('botright copen')
+		vim.cmd('botright copen 8')
 		vim.api.nvim_set_current_win(current)
 		-- @Note: We do a nvim_win_call here so that cfile+first doesn't affect the window view of other windows that have the same file as the error
 		vim.api.nvim_win_call(current, function()
