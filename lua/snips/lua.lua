@@ -1,6 +1,6 @@
 
 local ls = require "luasnip"
-local procs = require "user.snips.procs"
+local procs = require "snips.procs"
 
 local s = ls.snippet
 local t = ls.text_node

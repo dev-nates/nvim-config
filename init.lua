@@ -1,16 +1,11 @@
 
-require "user.options"
-require "user.keymaps"
-require "user.quickfix"
-require "user.reload"
-require "plugin_manager" -- Lazy plugin manager
-require "user.colorscheme"
+require "config.keymaps"
+require "config.options"
+require "config.quickfix"
 
--- Snippets
-require "user.snips.lua"
-require "user.snips.odin"
-require "user.snips.all"
-require "user.snips.mdesk"
-require "user.snips.c"
+require "config.lazy"
 
+require "snips.all"
+require "snips.lua"
+require "snips.c"
 

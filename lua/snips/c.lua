@@ -1,7 +1,7 @@
 
 
 local ls = require "luasnip"
-local procs = require "user.snips.procs"
+local procs = require "snips.procs"
 
 local s = ls.snippet
 local t = ls.text_node
@@ -240,6 +240,28 @@ local snippets = {
 			)
 		})
 	),
+
+	-- -------------------------------------------------------------------------------------------------
+	-- Scratch
+	
+	s("scr", c(1, {
+			fmta(
+				[[
+				Temp <scratch> = scratch_begin(<conflicts>, <count>);
+				<body>
+				scratch_end(<scratch0>);
+				]], {scratch=i(1, "scr"), conflicts=i(2, "0"), count=i(3, "0"), body=i(4), scratch0=rep(1)}
+			),
+			fmta(
+				[[
+				Temp <scratch> = scratch_begin(<conflicts>, <count>);
+				<body>
+				scratch_end(<scratch0>);
+				]], {scratch=i(1, "scr"), conflicts=i(2, "&arena"), count=i(3, "1"), body=i(4), scratch0=rep(1)}
+			),
+		})
+	),
+
 
 	-- -------------------------------------------------------------------------------------------------
 	-- #stack
