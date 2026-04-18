@@ -1,5 +1,4 @@
 
-
 local ls = require "luasnip"
 local procs = require "snips.procs"
 
@@ -71,11 +70,11 @@ local snippets = {
 		})
 	),
 
-	s("struct",
+	s("name",
 		fmta(
 			[[
-			typedef struct <name0> <name1>;
-			struct <name> {
+			typedef name <name0> <name1>;
+			name <name> {
 				<body>
 			};
 			]], {name=i(1), name0=rep(1), name1=rep(1), body=i(2)}
@@ -101,11 +100,11 @@ local snippets = {
 		})
 	),
 
-	s("snode",
+	s("structnode",
 		fmta(
 			[[
-			typedef struct <name0> <name1>;
-			struct <name> {
+			typedef name <name0> <name1>;
+			name <name> {
 				<name2> *<next>;
 				<body>
 			};
@@ -157,13 +156,13 @@ local snippets = {
 		c(1, {
 			fmta(
 				[[
-				rawptr <var> = push_size(<arena>, <size>);
-				]], {var=i(1), arena=i(2, "arena"), size=i(3, "size")}
+				rawptr <name> = push_size(<arena>, <size>);
+				]], {name=i(1), arena=i(2, "arena"), size=i(3, "size")}
 			),
 			fmta(
 				[[
-				<var> = push_size(<arena>, <size>);
-				]], {var=i(1), arena=i(2, "arena"), size=i(3, "size")}
+				<name> = push_size(<arena>, <size>);
+				]], {name=i(1), arena=i(2, "arena"), size=i(3, "size")}
 			)
 		})
 	),
@@ -171,13 +170,13 @@ local snippets = {
 		c(1, {
 			fmta(
 				[[
-				rawptr <var> = push_size_no_zero(<arena>, <size>));
-				]], {var=i(1), arena=i(2, "arena"), size=i(3, "size")}
+				rawptr <name> = push_size_no_zero(<arena>, <size>));
+				]], {name=i(1), arena=i(2, "arena"), size=i(3, "size")}
 			),
 			fmta(
 				[[
-				<var> = push_size_no_zero(<arena>, <size>);
-				]], {var=i(1), arena=i(2, "arena"), size=i(3, "size")}
+				<name> = push_size_no_zero(<arena>, <size>);
+				]], {name=i(1), arena=i(2, "arena"), size=i(3, "size")}
 			)
 		})
 	),
@@ -187,13 +186,13 @@ local snippets = {
 		c(1, {
 			fmta(
 				[[
-				<type> *<var> = push_struct(<arena>, <type0>);
-				]], {type=i(1, "Type"), var=i(2, "var"), arena=i(3, "arena"), type0=rep(1)}
+				<type> *<name> = push_struct(<arena>, <type0>);
+				]], {type=i(1, "Type"), name=i(2, "name"), arena=i(3, "arena"), type0=rep(1)}
 			),
 			fmta(
 				[[
-				<var> = push_struct(<arena>, <type>);
-				]], {var=i(1), arena=i(2, "arena"), type=i(3, "Type")}
+				<name> = push_struct(<arena>, <type>);
+				]], {name=i(1), arena=i(2, "arena"), type=i(3, "Type")}
 			)
 		})
 	),
@@ -201,13 +200,13 @@ local snippets = {
 		c(1, {
 			fmta(
 				[[
-				<type> *<var> = push_struct_no_zero(<arena>, <type0>);
-				]], {type=i(1, "Type"), var=i(2, "var"), arena=i(3, "arena"), type0=rep(1)}
+				<type> *<name> = push_struct_no_zero(<arena>, <type0>);
+				]], {type=i(1, "Type"), name=i(2, "name"), arena=i(3, "arena"), type0=rep(1)}
 			),
 			fmta(
 				[[
-				<var> = push_struct_no_zero(<arena>, <type>);
-				]], {var=i(1), arena=i(2, "arena"), type=i(3, "Type")}
+				<name> = push_struct_no_zero(<arena>, <type>);
+				]], {name=i(1), arena=i(2, "arena"), type=i(3, "Type")}
 			)
 		})
 	),
@@ -216,13 +215,13 @@ local snippets = {
 		c(1, {
 			fmta(
 				[[
-				<type> *<var> = push_array(<arena>, <type0>, <count>);
-				]], {type=i(1, "Type"), var=i(2, "var"), arena=i(3, "arena"), type0=rep(1), count=i(4, "count")}
+				<type> *<name> = push_array(<arena>, <type0>, <count>);
+				]], {type=i(1, "Type"), name=i(2, "name"), arena=i(3, "arena"), type0=rep(1), count=i(4, "count")}
 			),
 			fmta(
 				[[
-				<var> = push_array(<arena>, <type>, <count>);
-				]], {var=i(1, "var"), arena=i(2, "arena"), type=i(3, "Type"), count=i(4, "count")}
+				<name> = push_array(<arena>, <type>, <count>);
+				]], {name=i(1, "name"), arena=i(2, "arena"), type=i(3, "Type"), count=i(4, "count")}
 			)
 		})
 	),
@@ -230,13 +229,13 @@ local snippets = {
 		c(1, {
 			fmta(
 				[[
-				<type> *<var> = push_array_no_zero(<arena>, <type0>, <count>);
-				]], {type=i(1, "Type"), var=i(2, "var"), arena=i(3, "arena"), type0=rep(1), count=i(4, "count")}
+				<type> *<name> = push_array_no_zero(<arena>, <type0>, <count>);
+				]], {type=i(1, "Type"), name=i(2, "name"), arena=i(3, "arena"), type0=rep(1), count=i(4, "count")}
 			),
 			fmta(
 				[[
-				<var> = push_array_no_zero(<arena>, <type>, <count>);
-				]], {var=i(1), arena=i(2, "arena"), type=i(3, "type"), count=i(4, "count")}
+				<name> = push_array_no_zero(<arena>, <type>, <count>);
+				]], {name=i(1), arena=i(2, "arena"), type=i(3, "type"), count=i(4, "count")}
 			)
 		})
 	),

@@ -15,7 +15,10 @@ local options = {
 	showmode = false,                        -- we don't need to see things like -- INSERT -- anymore
 	showtabline = 0,                         -- always show tabs
 	smartcase = true,                        -- smart case
-	smartindent = true,                      -- make indenting smarter again
+
+	-- autoindent = true,
+	-- smartindent = true,                      -- make indenting smarter again
+	cindent = true,
 
 	splitbelow = true,                       -- force all horizontal splits to go below current window
 	splitright = true,                       -- force all vertical splits to go to the right of current window
@@ -49,7 +52,11 @@ end
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 -- vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set iskeyword+=$]]
+vim.cmd [[set iskeyword+=@]]
 vim.cmd [[set formatoptions+=cro]]
+
+-- CIndent Option Values
+vim.cmd [[set cino+=:0]] -- Place cases to match indent of switch block
 
 -- -------------------------------------------------------------------------------------------------
 -- Filetype
@@ -61,4 +68,13 @@ vim.filetype.add({
   },
 })
 
-
+-- -------------------------------------------------------------------------------------------------
+-- C3 error format
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = { 'c3' },
+	callback = function()
+		vim.cmd [[set efm=%.%#(%f:%l:%.%#%c)\ Error:\ %m]]
+		vim.cmd [[set efm+=%.%#(%f:%l:%.%#%c)\ Warning:\ %m]]
+		vim.cmd [[set efm+=%.%#(%f:%l:%.%#%c)\ Note:\ %m]]
+	end,
+})

@@ -6,9 +6,6 @@ return {
 	-- Undo tree
 	{ "mbbill/undotree" },
 
-	-- More vim motions
-	{ "wellle/targets.vim" },
-
 	-- Align
 	{
 		"https://github.com/echasnovski/mini.align",

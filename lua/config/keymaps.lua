@@ -13,6 +13,9 @@ keymap("n", "<leader>r", "<cmd>lua ReloadConfig()<CR>", { noremap = true, silent
 -- Change <C-c> to escape
 keymap("n", "<C-c>", "<Esc>", opts)
 
+-- Exit
+keymap("n", "<A-C>", ":wqa<cr>", opts)
+
 -- Enter can be used to save everything
 keymap("n", "<cr>", "<cmd>wa<cr>", opts)
 
@@ -47,13 +50,17 @@ keymap("n", "<A-x>", "<C-w>o", opts)
 keymap("n", "<A-s>", "<C-w>v", opts)
 
 -- Scroll using J/K
-keymap("n", "<c-k>", "<c-y>", opts)
-keymap("n", "<c-j>", "<c-e>", opts)
+keymap({"n", "x"}, "<c-k>", "<c-y>", opts)
+keymap({"n", "x"}, "<c-j>", "<c-e>", opts)
 
 -- Switch to visual mode using space
 keymap("n", "<space>", "v", opts)
-keymap("n", "<C-space>", "v", opts)
-keymap("n", "v", "<Nop>", opts)
+-- keymap("n", "<C-space>", "v", opts)
+-- keymap("n", "<Esc>[32;2u", "V", opts) -- Custom S-Space keymap in kitty
+keymap({"n", "x"}, "<S-space>", "V", opts)
+keymap({"n", "x"}, "v", "<nop>", opts)
+keymap({"n", "x"}, "V", "<nop>", opts)
+-- keymap({"x"}, "C", "c", opts)
 
 -- Resize with arrows
 -- keymap("n", "<A-S-J>", ":resize +2<CR>", opts)
@@ -94,15 +101,13 @@ keymap("x", "<", "<gv", opts)
 keymap("x", ">", ">gv", opts)
 
 -- Move text up and down
-keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
--- Better terminal navigation
--- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
--- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
--- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
+-- Rebind J & K
+keymap("n", "M", "J", opts);
+keymap({ "n", "x" }, "J", "j", opts);
+keymap({ "n", "x" }, "K", "k", opts);
 
 -- Telescope
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-- keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
@@ -122,9 +127,6 @@ keymap("n", "<leader>f", "<cmd>NvimTreeToggle<cr>", opts)
 -- Undo Tree
 keymap("n", "<leader>u", "<cmd>UndotreeToggle<cr>", opts)
 
--- Comment box
-keymap({ "n", "x" }, "<leader>cb", "<cmd>CBclbox<cr>vip=<esc>", opts)
-keymap({ "n", "x" }, "<leader>ch", "<cmd>CBllline<cr>V=<esc>", opts)
 
 -- @Todo: Keymap for generating tag file
 -- Goto to tag under cursor
@@ -148,5 +150,5 @@ keymap({"n", "x"}, 'D', function()
 end, opts)
 
 keymap({"n"}, "X", "D")
-keymap({"x"}, "C", "<nop>");
+-- keymap({"x"}, "C", "<nop>");
 
