@@ -11,13 +11,26 @@ vim.g.maplocalleader = "v"
 keymap("n", "<leader>r", "<cmd>lua ReloadConfig()<CR>", { noremap = true, silent = false })
 
 -- Change <C-c> to escape
-keymap("n", "<C-c>", "<Esc>", opts)
+-- keymap("n", "<C-c>", "<Esc>", opts)
+-- Allow tab to exit insert mode
+keymap({"n", "x", "i"}, "<tab>", "<Esc>", opts)
+keymap({"n"}, "&", "<C-o>", opts)
+keymap({"n"}, "#", "<C-i>", opts)
+
+-- Don't paste via middle-mouse (I use it to scroll)
+keymap({"n", "x", "i"}, "<MiddleMouse>", "<nop>", opts)
+keymap({"n", "x", "i"}, "<2-MiddleMouse>", "<nop>", opts)
+keymap({"n", "x", "i"}, "<3-MiddleMouse>", "<nop>", opts)
+keymap({"n", "x", "i"}, "<4-MiddleMouse>", "<nop>", opts)
 
 -- Exit
 keymap("n", "<A-C>", ":wqa<cr>", opts)
 
 -- Enter can be used to save everything
 keymap("n", "<cr>", "<cmd>wa<cr>", opts)
+
+-- A-m can be used to insert newlines in normal mode
+keymap("n", "<A-m>", "o<esc>", opts)
 
 -- Unbind C-Space in insert mode
 keymap("i", "<C-space>", "<space>", opts)
@@ -28,7 +41,7 @@ keymap("i", "<C-_>", "<C-t>", opts)
 
 -- Delete backwards by whitespace
 keymap("i", "<C-x>", "<C-o>dB", opts)
-keymap("i", "<C-backspace>", "<c-w>", opts)
+keymap("i", "<C-backspace>", "<C-w>", opts)
 
 -- Bind helpful arrow key movements in insert mode
 keymap("i", "<S-Left>", "<C-o>B", opts)
@@ -55,8 +68,6 @@ keymap({"n", "x"}, "<c-j>", "<c-e>", opts)
 
 -- Switch to visual mode using space
 keymap("n", "<space>", "v", opts)
--- keymap("n", "<C-space>", "v", opts)
--- keymap("n", "<Esc>[32;2u", "V", opts) -- Custom S-Space keymap in kitty
 keymap({"n", "x"}, "<S-space>", "V", opts)
 keymap({"n", "x"}, "v", "<nop>", opts)
 keymap({"n", "x"}, "V", "<nop>", opts)
@@ -88,7 +99,7 @@ keymap("i", "<C-c>", "<Esc>", opts)
 
 -- A-P paste in insert mode
 keymap("i", "<A-cr>", "<cr>", opts)
-keymap("i", "<A-p>", "<Esc>pa", opts)
+keymap("i", "<C-v>", "<Esc>pa", opts)
 
 -- Don't override register when pasting in visual mode
 -- keymap("x", "<c-p>", '"_dP', opts)
@@ -136,8 +147,8 @@ keymap("n", "<A-g>", "<c-]>", opts)
 keymap("n", "\\", "<cmd>noh<cr>", opts)
 
 -- Move up/down by scope
-keymap({ "n", "x" }, "{", "[{")
-keymap({ "n", "x" }, "}", "]}")
+keymap({ "n", "x" }, "{", "[{", opts)
+keymap({ "n", "x" }, "}", "]}", opts)
 
 -- Move up/down by paragraph
 
@@ -149,6 +160,5 @@ keymap({"n", "x"}, 'D', function()
 	vim.cmd("keepjumps normal! " .. vim.v.count1 .. "}")
 end, opts)
 
-keymap({"n"}, "X", "D")
--- keymap({"x"}, "C", "<nop>");
-
+keymap({"n"}, "<C-c>", "D", opts)
+keymap({"n"}, "X", "dd", opts)

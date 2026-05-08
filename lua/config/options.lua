@@ -11,14 +11,14 @@ local options = {
 	hlsearch = true,                         -- highlight all matches on previous search pattern
 	ignorecase = true,                       -- ignore case in search patterns
 	mouse = "a",                             -- allow the mouse to be used in neovim
-	pumheight = 3,                          -- pop up menu height
+	pumheight = 3,                           -- pop up menu height
 	showmode = false,                        -- we don't need to see things like -- INSERT -- anymore
 	showtabline = 0,                         -- always show tabs
 	smartcase = true,                        -- smart case
 
-	-- autoindent = true,
-	-- smartindent = true,                      -- make indenting smarter again
-	cindent = true,
+	autoindent = true,
+	smartindent = true,
+	cindent = false,
 
 	splitbelow = true,                       -- force all horizontal splits to go below current window
 	splitright = true,                       -- force all vertical splits to go to the right of current window
@@ -30,7 +30,7 @@ local options = {
 	writebackup = false,                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 	expandtab = false,                       -- convert tabs to spaces
 	shiftwidth = 0,                          -- the number of spaces inserted for each indentation
-	tabstop = 8,                             -- insert N spaces for a tab
+	tabstop = 1,                             -- insert N spaces for a tab
 	cursorline = true,                      -- highlight the current line
 	number = false,                          -- set numbered lines
 	relativenumber = true,                   -- set relative numbered lines
@@ -55,16 +55,13 @@ vim.cmd [[set iskeyword+=$]]
 vim.cmd [[set iskeyword+=@]]
 vim.cmd [[set formatoptions+=cro]]
 
--- CIndent Option Values
-vim.cmd [[set cino+=:0]] -- Place cases to match indent of switch block
-
 -- -------------------------------------------------------------------------------------------------
 -- Filetype
 
 vim.filetype.add({
   extension = {
     h = "c",
-    mdesk = "c",
+				mdesk = "mdesk",
   },
 })
 
@@ -73,8 +70,20 @@ vim.filetype.add({
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = { 'c3' },
 	callback = function()
+		vim.cmd [[set cindent]]
+		vim.cmd [[set cino+=:0]] -- Place cases to match indent of switch block
+		vim.cmd [[set cino+=l1]] -- Don't align with case statement
+		vim.cmd [[set cino+=L0]] 
+
 		vim.cmd [[set efm=%.%#(%f:%l:%.%#%c)\ Error:\ %m]]
 		vim.cmd [[set efm+=%.%#(%f:%l:%.%#%c)\ Warning:\ %m]]
 		vim.cmd [[set efm+=%.%#(%f:%l:%.%#%c)\ Note:\ %m]]
+	end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = { 'mdesk' },
+	callback = function()
+		vim.cmd [[set nocindent]]
 	end,
 })

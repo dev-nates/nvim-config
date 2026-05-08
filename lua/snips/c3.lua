@@ -16,10 +16,6 @@ local fmta = require("luasnip.extras.fmt").fmta
 
 
 local snippets = {
-	s("imp",
-		fmta([[import "<module>"]], {module=i(1, 'module')})
-	),
-
 	s("proc", c(1, {
 		fmta(
 			[[
@@ -72,6 +68,62 @@ local snippets = {
 			]], { name=i(1, "procedure"), args=i(2), ret=i(3, "void"), body=i(4) }
 		),
 		})
+	),
+
+	s("if", c(1, {
+			fmta(
+				[[
+				if (<cond>) {
+					<body>
+				}
+				]], {cond=i(1), body=i(2)}
+			),
+			fmta(
+				[[
+				if (<cond>) { <body> }
+				]], {cond=i(1), body=i(2)}
+			),
+		})
+	),
+
+	s("else",
+		fmta(
+			[[
+			else {
+				<body>
+			}
+			]], {body=i(1)}
+		)
+	),
+
+	s("elseif",
+		fmta(
+			[[
+			else if (<cond>) {
+				<body>
+			}
+			]], {cond=i(1), body=i(2)}
+		)
+	),
+
+	s("for",
+		fmta(
+			[[
+			for (<cond>) {
+				<body>
+			}
+			]], {cond=i(1), body=i(2)}
+		)
+	),
+
+	s("foreach",
+		fmta(
+			[[
+			foreach (<cond>) {
+				<body>
+			}
+			]], {cond=i(1), body=i(2)}
+		)
 	),
 
 	s("struct",
@@ -135,109 +187,72 @@ local snippets = {
 	),
 
 	-- -------------------------------------------------------------------------------------------------
-	-- #arena
-	s("psize",
-		c(1, {
-			fmta(
-				[[
-				<type>* <name> = push_size(<arena>, <size>);
-				]], {type=i(1, "void"), name=i(2, "name"), arena=i(3, "arena"), size=i(4, "size")}
-			),
-			fmta(
-				[[
-				<name> = push_size(<arena>, <size>);
-				]], {name=i(1, "name"), arena=i(2, "arena"), size=i(3, "size")}
-			)
-		})
-	),
-	s("psizenz",
-		c(1, {
-			fmta(
-				[[
-				<type>* <name> = push_size_no_zero(<arena>, <size>);
-				]], {type=i(1, "void"), name=i(2, "name"), arena=i(3, "arena"), size=i(4, "size")}
-			),
-			fmta(
-				[[
-				<name> = push_size_no_zero(<arena>, <size>);
-				]], {name=i(1, "name"), arena=i(2, "arena"), size=i(3, "size")}
-			)
-		})
-	),
-
-
-	s("pstruct",
-		c(1, {
-			fmta(
-				[[
-				<type> *<name> = push_struct(<arena>, <type0>);
-				]], {type=i(1, "Type"), name=i(2, "name"), arena=i(3, "arena"), type0=rep(1)}
-			),
-			fmta(
-				[[
-				<name> = push_struct(<arena>, <type>);
-				]], {name=i(1, "name"), arena=i(2, "arena"), type=i(3, "Type")}
-			)
-		})
-	),
-	s("pstructnz",
-		c(1, {
-			fmta(
-				[[
-				<type> *<name> = push_struct_no_zero(<arena>, <type0>);
-				]], {type=i(1, "Type"), name=i(2, "name"), arena=i(3, "arena"), type0=rep(1)}
-			),
-			fmta(
-				[[
-				<name> = push_struct_no_zero(<arena>, <type>);
-				]], {name=i(1, "name"), arena=i(2, "arena"), type=i(3, "Type")}
-			)
-		})
-	),
-
-	s("parray",
-		c(1, {
-			fmta(
-				[[
-				<type>[] <name> = push_array(<arena>, <type0>, <count>);
-				]], {type=i(1, "Type"), name=i(2, "name"), arena=i(3, "arena"), type0=rep(1), count=i(4, "count")}
-			),
-			fmta(
-				[[
-				<name> = push_array(<arena>, <type>, <count>);
-				]], {name=i(1, "name"), arena=i(2, "arena"), type=i(3, "Type"), count=i(4, "count")}
-			)
-		})
-	),
-	s("parraynz",
-		c(1, {
-			fmta(
-				[[
-				<type>[] <name> = push_array_no_zero(<arena>, <type0>, <count>);
-				]], {type=i(1, "Type"), name=i(2, "name"), arena=i(3, "arena"), type0=rep(1), count=i(4, "count")}
-			),
-			fmta(
-				[[
-				<name> = push_array_no_zero(<arena>, <type>, <count>);
-				]], {name=i(1, "name"), arena=i(2, "arena"), type=i(3, "type"), count=i(4, "count")}
-			)
-		})
-	),
-
+	-- ┌             ┐
+	-- │ Linked List │
+	-- └             ┘
+	
 	-- -------------------------------------------------------------------------------------------------
-	-- Scratch
-	s("scr",
+	-- Stack
+	s("stkpush",
 		fmta(
 			[[
-			Temp <scratch> = scratch_begin({<conflicts>});
-			<body>
-			scratch_end(<scratch0>);
-			]], {scratch=i(1, "scr"), conflicts=i(2), body=i(3), scratch0=rep(1)}
+			@stkpush(<head>, <node>);
+			]], {head=i(1, "head"), node=i(2, "node")}
+		)
+	),
+	s("stkpushc",
+		fmta(
+			[[
+			@stkpushc(<head>, <count>, <node>);
+			]], {head=i(1, "head"), count=i(2, "count"), node=i(3, "node")}
+		)
+	),
+	s("stkpop",
+		fmta(
+			[[
+			@stkpop(<head>);
+			]], {head=i(1, "head")}
+		)
+	),
+	s("stkpopc",
+		fmta(
+			[[
+			@stkpop(<head>, <count>);
+			]], {head=i(1, "head"), count=i(2, "count")}
 		)
 	),
 
 	-- -------------------------------------------------------------------------------------------------
-	-- Linked List
+	-- Freelist
+	s("flpush",
+		fmta(
+			[[
+			@flpush(<head>, <node>);
+			]], {head=i(1, "head"), node=i(2, "node")}
+		)
+	),
+	s("flpushc",
+		fmta(
+			[[
+			@flpushc(<head>, <count>, <node>);
+			]], {head=i(1, "head"), count=i(2, "count"), node=i(3, "node")}
+		)
+	),
+	s("flpop",
+		fmta(
+			[[
+			@flpop(<head>);
+			]], {head=i(1, "head")}
+		)
+	),
+	s("flpopc",
+		fmta(
+			[[
+			@flpopc(<head>, <count>);
+			]], {head=i(1, "head"), count=i(2, "count")}
+		)
+	),
+
 
 	-- -------------------------------------------------------------------------------------------------
 	-- Single Linked List

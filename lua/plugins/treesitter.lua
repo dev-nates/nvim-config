@@ -1,16 +1,18 @@
 
+
 local config = function()
 	require('nvim-treesitter').setup {
 		-- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
 		install_dir = vim.fn.stdpath('data') .. '/site'
 	}
 
-	require('nvim-treesitter').install { 'lua', 'c', 'c3', 'odin', 'markdown' }
+	require('nvim-treesitter').install { 'lua', 'c', 'c3', 'odin', 'markdown', 'bash' }
 
+	local filetypes = { 'lua', 'conf', 'config', 'md', 'vim', 'sh', }
 	vim.api.nvim_create_autocmd('FileType', {
-		pattern = { 'lua', 'c', 'c3', 'odin' },
+		pattern = filetypes,
 		callback = function()
-			-- vim.treesitter.start()
+			vim.treesitter.start()
 			-- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 		end,
 	})
@@ -20,9 +22,6 @@ local config = function()
 end
 
 return {
-}
---[[
-return {
 	{
 		'nvim-treesitter/nvim-treesitter',
 		lazy = false,
@@ -31,4 +30,3 @@ return {
 	}
 	-- { "nvim-treesitter/nvim-treesitter-context" },
 }
-]]

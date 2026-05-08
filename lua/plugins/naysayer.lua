@@ -5,10 +5,6 @@ local c_colors = function()
 	-- vim.cmd [[hi cString guifg=#3FB186]]
 end
 
-local c3_colors = function()
-	vim.cmd [[hi c3Assert guifg=#b53d69]]
-end
-
 local config = function()
 	local colorscheme = "default"
 
@@ -37,10 +33,6 @@ local config = function()
 	vim.api.nvim_create_autocmd('FileType', {
 		pattern = { 'c' },
 		callback = function() c_colors() end,
-	})
-	vim.api.nvim_create_autocmd('FileType', {
-		pattern = { 'c3' },
-		callback = function() c3_colors() end,
 	})
 end
 

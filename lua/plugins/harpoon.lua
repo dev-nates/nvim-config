@@ -5,7 +5,12 @@ local config = function()
 	harpoon:setup()
 
 	local keymap = vim.keymap.set
-	keymap("n", "<leader>a", function() harpoon:list():add() end)
+	keymap("n", "<C-g>", function()
+		harpoon:list():add()
+		local filepath = vim.api.nvim_buf_get_name(0)
+		local filename = filepath:match("^.*/(.*).*$") or filepath
+		print("Harpoon added: [" .. filename .. "]")
+	end)
 	keymap("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 	keymap("n", "<C-h>", function() harpoon:list():select(1) end)
