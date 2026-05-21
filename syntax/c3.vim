@@ -4,7 +4,7 @@ syntax keyword c3Assert assert
 syntax keyword c3Keyword fn struct const constdef union enum macro inline bitstruct alias typedef extern tlocal
 syntax keyword c3Import import module nextgroup=c3ModuleName skipwhite
 
-syntax keyword c3Types void any String char short ushort int uint long ulong float double isz usz iptr uptr
+syntax keyword c3Types void any String char short ushort int uint long ulong float double isz sz iptr uptr uint128 int128 typeid
 syntax keyword c3Boolean bool true false
 
 syntax keyword c3ControlFlow if for foreach foreach_r else switch do case break continue defer

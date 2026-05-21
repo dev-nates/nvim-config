@@ -168,171 +168,15 @@ end
 
 -- -------------------------------------------------------------------------------------------------
 -- #snippets
-ls.add_snippets("odin", {
+local snippets = {
 	-- -------------------------------------------------------------------------------------------------
 	-- #general
 	s("imp",
 		fmta([[import <prefix>"<path>"]], {prefix = i(0), path = i(1)})
 	),
 
-	s("proc", c(1, {
-		fmta(
-			[[
-			<name> :: proc(<args>) <ret>{
-				<body>
-			}
-			]], { name=i(1), args=i(2), ret=i(3), body=i(4) }
-		),
-		fmta(
-			[[
-			<name> :: proc(
-				<args>
-			) <ret>{
-				<body>
-			}
-			]], { name=i(1), args=i(2), ret=i(3), body=i(4) }
-		),
-		fmta(
-			[[
-			<name> :: proc(<args>) <ret>{ <body> }
-			]], { name=i(1), args=i(2), ret=i(3), body=i(4) }
-		),
-		})
-	),
-
-	s("struct", c(1, {
-			fmta(
-				[[
-				<name> :: struct {
-					<body>
-				}
-				]], {name=i(1), body=i(2)}
-			),
-			fmta(
-				[[
-				<name> :: struct #all_or_none {
-					<body>
-				}
-				]], {name=i(1), body=i(2)}
-			),
-		})
-	),
-
-	s("union",
-		fmta(
-			[[
-			<name> :: union {
-				<body>
-			}
-			]], {name=i(1), body=i(2)}
-		)
-	),
-
-	s("snode",
-		fmta(
-			[[
-			<name> :: struct #all_or_none {
-				<next>: ^<name0>,
-				<body>
-			}
-			]], {name=i(1), next=i(2), name0=rep(1), body=i(3) }
-		)
-	),
-
-	s("enum",
-		fmta(
-			[[
-			<name> :: enum {
-				<body>
-			}
-			]], {name=i(1), body=i(2)}
-		)
-	),
-
-	s("for",
-		fmta(
-			[[
-			for <stmt>{
-				<body>
-			}
-			]], {stmt=i(1), body=i(2)}
-		)
-	),
-
-
-	s("if",
-		c(1, {
-			fmta(
-				[[
-				if <stmt>{
-					<body>
-				}
-				]], {stmt=i(1), body=i(2)}
-			),
-			fmta(
-				[[
-				if <stmt>{ <body> }
-				]], {stmt=i(1), body=i(2)}
-			),
-		})
-	),
-	s("else",
-		c(1, {
-			fmta(
-				[[
-				else <stmt>{
-					<body>
-				}
-				]], {stmt=i(1), body=i(2)}
-			),
-			fmta(
-				[[
-				else <stmt>{ <body> }
-				]], {stmt=i(1), body=i(2)}
-			),
-		})
-	),
-
-	s("ifok", c(1, {
-			fmta(
-				[[
-				if ok := <stmt>; <cond>{
-					<body>
-				}
-				]], {stmt=i(1), cond=i(2, "!ok "), body=i(3)}
-			),
-			fmta(
-				[[
-				if ok := <stmt>; <cond>{ <body> }
-				]], {stmt=i(1), cond=i(2, "!ok "), body=i(3)}
-			),
-		})
-	),
-
-	s("iferr", c(1, {
-			fmta(
-				[[
-				if err := <stmt>; <cond>{
-					<body>
-				}
-				]], {stmt=i(1), cond=i(2, "err != nil "), body=i(3)}
-			),
-			fmta(
-				[[
-				if err := <stmt>; <cond>{ <body> }
-				]], {stmt=i(1), cond=i(2, "err != nil "), body=i(3)}
-			),
-		})
-	),
-
-	s("switch",
-		fmta(
-			[[
-			switch <stmt>{
-				<body>
-			}
-			]], {stmt=i(1), body=i(2)}
-		)
+	s("glue",
+		fmta([[<type> :: <pkg>.<type2>]], {type=i(1, "symbol"), type2=rep(1), pkg=i(2, "package")})
 	),
 
 	-- -------------------------------------------------------------------------------------------------
@@ -341,12 +185,12 @@ ls.add_snippets("odin", {
 		c(1, {
 			fmta(
 				[[
-				<var> := mem.push_size(<size>, <arena>)
+				<var> := push_size(<size>, <arena>)
 				]], {var=i(1), size=i(2, "size"), arena=i(3, "arena")}
 			),
 			fmta(
 				[[
-				<var> = mem.push_size(<size>, <arena>)
+				<var> = push_size(<size>, <arena>)
 				]], {var=i(1), size=i(2, "size"), arena=i(3, "arena")}
 			)
 		})
@@ -355,12 +199,12 @@ ls.add_snippets("odin", {
 		c(1, {
 			fmta(
 				[[
-				<var> := mem.push_size_no_zero(<size>, <arena>)
+				<var> := push_size_no_zero(<size>, <arena>)
 				]], {var=i(1), size=i(2, "size"), arena=i(3, "arena")}
 			),
 			fmta(
 				[[
-				<var> = mem.push_size_no_zero(<size>, <arena>)
+				<var> = push_size_no_zero(<size>, <arena>)
 				]], {var=i(1), size=i(2, "size"), arena=i(3, "arena")}
 			)
 		})
@@ -371,12 +215,12 @@ ls.add_snippets("odin", {
 		c(1, {
 			fmta(
 				[[
-				<var> := mem.push_struct(<type>, <arena>)
+				<var> := push_struct(<type>, <arena>)
 				]], {var=i(1), type=i(2, "type"), arena=i(3, "arena")}
 			),
 			fmta(
 				[[
-				<var> = mem.push_struct(<type>, <arena>)
+				<var> = push_struct(<type>, <arena>)
 				]], {var=i(1), type=i(2, "type"), arena=i(3, "arena")}
 			)
 		})
@@ -385,12 +229,12 @@ ls.add_snippets("odin", {
 		c(1, {
 			fmta(
 				[[
-				<var> := mem.push_struct_no_zero(<type>, <arena>)
+				<var> := push_struct_no_zero(<type>, <arena>)
 				]], {var=i(1), type=i(2, "type"), arena=i(3, "arena")}
 			),
 			fmta(
 				[[
-				<var> = mem.push_struct_no_zero(<type>, <arena>)
+				<var> = push_struct_no_zero(<type>, <arena>)
 				]], {var=i(1), type=i(2, "type"), arena=i(3, "arena")}
 			)
 		})
@@ -400,12 +244,12 @@ ls.add_snippets("odin", {
 		c(1, {
 			fmta(
 				[[
-				<var> := mem.push_array(<type>, <count>, <arena>)
+				<var> := push_array(<type>, <count>, <arena>)
 				]], {var=i(1), type=i(2, "type"), count=i(3, "count"), arena=i(4, "arena")}
 			),
 			fmta(
 				[[
-				<var> = mem.push_array(<type>, <count>, <arena>)
+				<var> = push_array(<type>, <count>, <arena>)
 				]], {var=i(1), type=i(2, "type"), count=i(3, "count"), arena=i(4, "arena")}
 			)
 		})
@@ -414,17 +258,83 @@ ls.add_snippets("odin", {
 		c(1, {
 			fmta(
 				[[
-				<var> := mem.push_array_no_zero(<type>, <count>, <arena>)
+				<var> := push_array_no_zero(<type>, <count>, <arena>)
 				]], {var=i(1), type=i(2, "type"), count=i(3, "count"), arena=i(4, "arena")}
 			),
 			fmta(
 				[[
-				<var> = mem.push_array_no_zero(<type>, <count>, <arena>)
+				<var> = push_array_no_zero(<type>, <count>, <arena>)
 				]], {var=i(1), type=i(2, "type"), count=i(3, "count"), arena=i(4, "arena")}
 			)
 		})
 	),
 
+	-- -------------------------------------------------------------------------------------------------
+	-- # procedure with automatic error returning
+
+	-- s("perr",
+	-- 	fmta(
+	-- 		[[
+	-- 		<value_list> := <proc>(<args>)
+	-- 		if <err0> != nil {
+	-- 			return <result>
+	-- 		}
+	-- 		<finish>
+	-- 		]], {
+	-- 			value_list = i(1),
+	-- 			proc = i(2, "procedure"),
+	-- 			args = i(3, "args"),
+	-- 			err0 = f(function(value_list) return value_list_last_item(value_list[1][1]) end, {1}),
+	-- 			result = d(4, odin_return_values, {1, 2}),
+	-- 			finish = i(0),
+	-- 		}
+	-- 	)
+	-- ),
+	-- s("ifperr",
+	-- 	fmta(
+	-- 		[[
+	-- 		if <value_list> := <proc>(<args>); <condition> {<body>
+	-- 			return <result>
+	-- 		}
+	-- 		]], {
+	-- 			value_list = i(1),
+	-- 			proc = i(2, "procedure"),
+	-- 			args = i(3, "args"),
+	-- 			condition = d(4, function(value_list)
+	-- 				return sn(nil, i(1, value_list_last_item(value_list[1][1]) .. " != nil"))
+	-- 			end, {1}),
+	-- 			body = i(5),
+	-- 			result = d(6, odin_return_values, {}),
+	-- 		}
+	-- 	)
+	-- ),
+	-- s("iferr",
+	-- 	fmta(
+	-- 		[[
+	-- 		if <cond> { return <result> }
+	-- 		]], { cond=i(1, "err != nil"), result=d(2, odin_return_values, {}) }
+	-- 	)
+	-- ),
+
+	-- -------------------------------------------------------------------------------------------------
+	-- #vulkan
+	s("vkci",
+		fmt(
+			[[
+			{} :={}{} {{
+				sType = .{},
+				{}
+			}}
+			]]
+		, {i(1), check_for_vulkan(), i(2), procs.to_upper(2), i(0)})
+	)
+}
+
+ls.add_snippets("odin", snippets)
+
+
+
+local old_snippets = {
 	-- -------------------------------------------------------------------------------------------------
 	-- #stack
 	s("stkpush",
@@ -479,9 +389,9 @@ ls.add_snippets("odin", {
 					sanitizer.address_unpoison(<node1>)
 					<freelist0> = <freelist1>.<next>
 				} else {
-					<node2> = mem.push_struct_no_zero(<type>, <arena>)
+					<node2> = push_struct_no_zero(<type>, <arena>)
 				}
-				mem.zero_struct(<node3>)
+				memory.zero_struct(<node3>)
 				]], {node=i(1, "node"), freelist=i(2, "freelist"), node0=rep(1), nilv=i(3, "nil"), node1=rep(1), freelist0=rep(2), freelist1 = rep(2),
 				next=i(4, "next"), node2=rep(1), type=i(5, "type"), arena=i(6, "arena"), node3=rep(1),
 			}),
@@ -503,9 +413,9 @@ ls.add_snippets("odin", {
 					<freelist0> = <freelist1>.<next>
 					<count> -= 1
 				} else {
-					<node2> = mem.push_struct_no_zero(<type>, <arena>)
+					<node2> = push_struct_no_zero(<type>, <arena>)
 				}
-				mem.zero_struct(<node3>)
+				memory.zero_struct(<node3>)
 				]], {node=i(1, "node"), freelist=i(2, "freelist"), node0=rep(1), nilv=i(3, "nil"), node1=rep(1), freelist0=rep(2), freelist1 = rep(2),
 				next=i(4, "next"), count=i(5, "count"), node2=rep(1), type=i(6, "type"), arena=i(7, "arena"), node3=rep(1), 
 			}),
@@ -689,63 +599,4 @@ ls.add_snippets("odin", {
 		)
 	),
 
-	-- -------------------------------------------------------------------------------------------------
-	-- # procedure with automatic error returning
-
-	-- s("perr",
-	-- 	fmta(
-	-- 		[[
-	-- 		<value_list> := <proc>(<args>)
-	-- 		if <err0> != nil {
-	-- 			return <result>
-	-- 		}
-	-- 		<finish>
-	-- 		]], {
-	-- 			value_list = i(1),
-	-- 			proc = i(2, "procedure"),
-	-- 			args = i(3, "args"),
-	-- 			err0 = f(function(value_list) return value_list_last_item(value_list[1][1]) end, {1}),
-	-- 			result = d(4, odin_return_values, {1, 2}),
-	-- 			finish = i(0),
-	-- 		}
-	-- 	)
-	-- ),
-	-- s("ifperr",
-	-- 	fmta(
-	-- 		[[
-	-- 		if <value_list> := <proc>(<args>); <condition> {<body>
-	-- 			return <result>
-	-- 		}
-	-- 		]], {
-	-- 			value_list = i(1),
-	-- 			proc = i(2, "procedure"),
-	-- 			args = i(3, "args"),
-	-- 			condition = d(4, function(value_list)
-	-- 				return sn(nil, i(1, value_list_last_item(value_list[1][1]) .. " != nil"))
-	-- 			end, {1}),
-	-- 			body = i(5),
-	-- 			result = d(6, odin_return_values, {}),
-	-- 		}
-	-- 	)
-	-- ),
-	-- s("iferr",
-	-- 	fmta(
-	-- 		[[
-	-- 		if <cond> { return <result> }
-	-- 		]], { cond=i(1, "err != nil"), result=d(2, odin_return_values, {}) }
-	-- 	)
-	-- ),
-
-	-- -------------------------------------------------------------------------------------------------
-	-- #vulkan
-	s("vkci",
-		fmt(
-			[[
-			{} :={}{} {{
-				sType = .{},
-				{}
-			}}
-			]]
-		, {i(1), check_for_vulkan(), i(2), procs.to_upper(2), i(0)})
-	)
-})
+}

@@ -8,6 +8,7 @@ require "config.lazy"
 
 require "snips.all"
 require "snips.lua"
+require "snips.odin"
 require "snips.c"
 require "snips.c3"
 

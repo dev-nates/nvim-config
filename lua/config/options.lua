@@ -16,9 +16,9 @@ local options = {
 	showtabline = 0,                         -- always show tabs
 	smartcase = true,                        -- smart case
 
-	autoindent = true,
-	smartindent = true,
-	cindent = false,
+	-- autoindent = false,
+	-- smartindent = true,
+	-- cindent = false,
 
 	splitbelow = true,                       -- force all horizontal splits to go below current window
 	splitright = true,                       -- force all vertical splits to go to the right of current window
@@ -62,28 +62,31 @@ vim.filetype.add({
   extension = {
     h = "c",
 				mdesk = "mdesk",
+				odin = "odin",
   },
 })
 
+-- vim.api.nvim_create_autocmd('FileType', {
+-- 	pattern = { '*' },
+-- 	callback = function()
+-- 		vim.cmd [[set cindent]]
+-- 		vim.cmd [[set cino+=:0]] -- Place cases to match indent of switch block
+-- 		vim.cmd [[set cino+=L0]] -- Keep labels at same indent
+-- 	end
+-- })
+
 -- -------------------------------------------------------------------------------------------------
 -- C3 error format
-vim.api.nvim_create_autocmd('FileType', {
-	pattern = { 'c3' },
-	callback = function()
-		vim.cmd [[set cindent]]
-		vim.cmd [[set cino+=:0]] -- Place cases to match indent of switch block
-		vim.cmd [[set cino+=l1]] -- Don't align with case statement
-		vim.cmd [[set cino+=L0]] 
-
-		vim.cmd [[set efm=%.%#(%f:%l:%.%#%c)\ Error:\ %m]]
-		vim.cmd [[set efm+=%.%#(%f:%l:%.%#%c)\ Warning:\ %m]]
-		vim.cmd [[set efm+=%.%#(%f:%l:%.%#%c)\ Note:\ %m]]
-	end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-	pattern = { 'mdesk' },
-	callback = function()
-		vim.cmd [[set nocindent]]
-	end,
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+-- 	pattern = { 'c3' },
+-- 	callback = function()
+-- 		vim.cmd [[set cindent]]
+-- 		vim.cmd [[set cino+=:0]] -- Place cases to match indent of switch block
+-- 		vim.cmd [[set cino+=l1]] -- Don't align with case statement
+-- 		vim.cmd [[set cino+=L0]] 
+--
+-- 		vim.cmd [[set efm=%.%#(%f:%l:%.%#%c)\ Error:\ %m]]
+-- 		vim.cmd [[set efm+=%.%#(%f:%l:%.%#%c)\ Warning:\ %m]]
+-- 		vim.cmd [[set efm+=%.%#(%f:%l:%.%#%c)\ Note:\ %m]]
+-- 	end,
+-- })

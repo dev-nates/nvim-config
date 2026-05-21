@@ -6,7 +6,7 @@ local config = function()
 		install_dir = vim.fn.stdpath('data') .. '/site'
 	}
 
-	require('nvim-treesitter').install { 'lua', 'c', 'c3', 'odin', 'markdown', 'bash' }
+	require('nvim-treesitter').install { 'lua', 'c', 'c3', 'markdown', 'bash' }
 
 	local filetypes = { 'lua', 'conf', 'config', 'md', 'vim', 'sh', }
 	vim.api.nvim_create_autocmd('FileType', {
