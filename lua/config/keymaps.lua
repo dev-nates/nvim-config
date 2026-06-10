@@ -122,18 +122,18 @@ keymap({ "n", "x" }, "K", "k", opts);
 
 -- Telescope
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-- keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
-keymap("n", "<leader>h", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
-keymap("n", "<leader>g", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<A-t>", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
+keymap("n", "<A-g>", "<cmd>Telescope live_grep<cr>", opts)
 keymap("n", "<leader>s", "<cmd>Telescope lsp_workspace_symbols<cr>", opts)
 keymap("n", "<leader>S", "<cmd>Telescope lsp_document_symbols<cr>", opts)
 keymap("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
-keymap("n", "<leader>t", "<cmd>Telescope tags<cr>", opts)
+keymap("n", "<A-w>", "<cmd>Telescope tags<cr>", opts)
 
 -- NETRW
 keymap("n", "<leader>n", ":Lex 30<cr>", opts)
 
 -- NvimTree
-keymap("n", "<leader>f", "<cmd>NvimTreeToggle<cr>", opts)
+keymap("n", "<A-f>", "<cmd>NvimTreeToggle<cr>", opts)
 
 -- Undo Tree
 keymap("n", "<leader>u", "<cmd>UndotreeToggle<cr>", opts)
@@ -141,7 +141,7 @@ keymap("n", "<leader>u", "<cmd>UndotreeToggle<cr>", opts)
 
 -- @Todo: Keymap for generating tag file
 -- Goto to tag under cursor
-keymap("n", "<A-g>", "<c-]>", opts)
+keymap("n", "<A-b>", "<c-]>", opts)
 
 -- Unhighlight
 keymap("n", "\\", "<cmd>noh<cr>", opts)
