@@ -11,7 +11,7 @@ syntax match odinPackageAda /\v<\w*>\ze(\s*\.[A-Z][a-z0-9]*(_[A-Za-z0-9]*)*)/
 syntax match odinPush /\v<push\w*>/ contained containedin=odinProcedure
 syntax match odinArena /\v<Arena>/
 syntax match odinScratch /\v<scratch\w*>/
-syntax match odinExpandOperator /\v(**)/
+syntax match odinExpandOperator /\v(\*\*)/
 
 syntax match commentTodo /\v(\@Todo|\@Fix|\@Error)/ containedin=odinBlockComment,odinLineComment
 syntax match commentNote /@Note/ containedin=odinBlockComment,odinLineComment
