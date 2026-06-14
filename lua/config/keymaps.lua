@@ -69,6 +69,7 @@ keymap({"n", "x"}, "<c-j>", "<c-e>", opts)
 -- Switch to visual mode using space
 keymap("n", "<space>", "v", opts)
 keymap({"n", "x"}, "<S-space>", "V", opts)
+keymap({"n", "x"}, "<C-space>", "<C-v>", opts)
 keymap({"n", "x"}, "v", "<nop>", opts)
 keymap({"n", "x"}, "V", "<nop>", opts)
 -- keymap({"x"}, "C", "c", opts)

@@ -179,7 +179,7 @@ local snippets = {
 		fmta([[<type> :: <pkg>.<type2>]], {type=i(1, "symbol"), type2=rep(1), pkg=i(2, "package")})
 	),
 
-	s("scratch",
+	s("scr",
 			fmta([[
 				<scratch> := memory.scratch({<arena>})
 			]], {scratch=i(1, "scratch"), arena=i(2)}
