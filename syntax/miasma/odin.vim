@@ -25,8 +25,8 @@ highlight odinAda guifg=#78834B gui=BOLD
 highlight odinSlice guifg=#78834B gui=BOLD
 highlight default link odinEnum Constant
 highlight default link odinFuncDecl Function
-highlight odinPackage guifg=#666666
-highlight odinPackageAda guifg=#666666
+highlight odinPackage guifg=#8c8677
+highlight odinPackageAda guifg=#8c8677
 highlight odinFunc guifg=#78834B
 highlight odinAssert guifg=#824a76
 highlight odinArena guifg=#4a7682 gui=BOLD

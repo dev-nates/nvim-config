@@ -1,4 +1,6 @@
 
+
+--[[
 local function prev_nonblank(lnum)
   while lnum > 0 do
     local line = vim.fn.getline(lnum)
@@ -64,3 +66,4 @@ function _G.odin_ident()
 end
 
 vim.bo.indentexpr = "v:lua.odin_ident()"
+]]--

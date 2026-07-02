@@ -19,14 +19,8 @@ local fmta = require("luasnip.extras.fmt").fmta
 ls.add_snippets('all', {
 	s('curtime',
 		f(function()
-			return os.date "%D -- %H:%M"
+			return os.date "[%d/%m/%Y] %H:%M"
 		end)
 	),
-	s('todo', c(1, {
-			t("@Todo:"),
-			t("@Todo(nates):"),
-		})
-	),
-	s("note", t "@Note:"),
 })
 

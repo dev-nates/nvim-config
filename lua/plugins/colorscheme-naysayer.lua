@@ -1,10 +1,4 @@
 
-local c_colors = function()
-	vim.cmd [[hi cAssert guifg=#b53d69]]
-	vim.cmd [[hi cZeroStruct guifg=#8c8677]]
-	-- vim.cmd [[hi cString guifg=#3FB186]]
-end
-
 local config = function()
 	local colorscheme = "default"
 
@@ -29,18 +23,14 @@ local config = function()
 	vim.cmd [[hi statusline guibg=none]]
 	vim.cmd [[hi statusline guifg=#BDB395]]
 	vim.cmd [[hi Normal ctermbg=none guibg=#031C1F]]
-
-	vim.api.nvim_create_autocmd('FileType', {
-		pattern = { 'c' },
-		callback = function() c_colors() end,
-	})
 end
 
+return {}
 
-return {
+--[[return {
 	-- Colorscheme
 	{
 		"alljokecake/naysayer-theme.nvim", as = 'naysayer',
 		config = config,
 	},
-}
+}]]--

@@ -21,6 +21,8 @@ local config = function()
 	vim.wo[0][0].foldmethod = 'expr'
 end
 
+return {}
+--[[
 return {
 	{
 		'nvim-treesitter/nvim-treesitter',
@@ -30,3 +32,4 @@ return {
 	}
 	-- { "nvim-treesitter/nvim-treesitter-context" },
 }
+]]--

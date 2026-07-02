@@ -66,6 +66,8 @@ local config = function()
 	-- vim.cmd [[hi UfoFoldedBg guibg=NONE]]
 end
 
+return {}
+--[[
 return {
 	-- Ufo Code Folding
 	{
@@ -74,3 +76,4 @@ return {
 		config = config,
 	},
 }
+]]--

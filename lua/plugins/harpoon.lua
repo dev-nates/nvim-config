@@ -11,7 +11,7 @@ local config = function()
 		local filename = filepath:match("^.*/(.*).*$") or filepath
 		print("Harpoon added: [" .. filename .. "]")
 	end)
-	keymap("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+	keymap("n", "<A-v>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 	keymap("n", "<C-h>", function() harpoon:list():select(1) end)
 	keymap("n", "<C-t>", function() harpoon:list():select(2) end)
@@ -42,7 +42,7 @@ local config = function()
 		}):find()
 	end
 
-	vim.keymap.set("n", "<leader>e", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
+	vim.keymap.set("n", "<A-w>", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
 end
 
 return {

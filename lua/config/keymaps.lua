@@ -11,7 +11,7 @@ vim.g.maplocalleader = "v"
 keymap("n", "<leader>r", "<cmd>lua ReloadConfig()<CR>", { noremap = true, silent = false })
 
 -- Change <C-c> to escape
--- keymap("n", "<C-c>", "<Esc>", opts)
+keymap("n", "<C-c>", "<Esc>", opts)
 -- Allow tab to exit insert mode
 keymap({"n", "x", "i"}, "<tab>", "<Esc>", opts)
 keymap({"n"}, "&", "<C-o>", opts)
@@ -29,8 +29,8 @@ keymap("n", "<A-C>", ":wqa<cr>", opts)
 -- Enter can be used to save everything
 keymap("n", "<cr>", "<cmd>wa<cr>", opts)
 
--- A-m can be used to insert newlines in normal mode
-keymap("n", "<A-m>", "o<esc>", opts)
+-- Enter can be used to insert newlines in normal mode
+-- keymap("n", "<cr>", "o<esc>", opts)
 
 -- Unbind C-Space in insert mode
 keymap("i", "<C-space>", "<space>", opts)
@@ -128,7 +128,7 @@ keymap("n", "<A-g>", "<cmd>Telescope live_grep<cr>", opts)
 keymap("n", "<leader>s", "<cmd>Telescope lsp_workspace_symbols<cr>", opts)
 keymap("n", "<leader>S", "<cmd>Telescope lsp_document_symbols<cr>", opts)
 keymap("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
-keymap("n", "<A-w>", "<cmd>Telescope tags<cr>", opts)
+keymap("n", "<A-m>", "<cmd>Telescope tags<cr>", opts)
 
 -- NETRW
 keymap("n", "<leader>n", ":Lex 30<cr>", opts)
@@ -161,5 +161,4 @@ keymap({"n", "x"}, 'D', function()
 	vim.cmd("keepjumps normal! " .. vim.v.count1 .. "}")
 end, opts)
 
-keymap({"n"}, "<C-c>", "D", opts)
 keymap({"n"}, "X", "dd", opts)
