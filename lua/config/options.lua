@@ -36,7 +36,7 @@ local options = {
 	relativenumber = true,                   -- set relative numbered lines
 	numberwidth = 4,                         -- set number column width to 2 {default 4}
 	signcolumn = "no",                       -- always show the sign column, otherwise it would shift the text each time
-	laststatus = 2,                          -- Status line
+	laststatus = 3,                          -- Status line
 	wrap = false,                            -- display lines as one long line
 	scrolloff = 6,
 	sidescrolloff = 12,
@@ -53,7 +53,7 @@ vim.cmd "set whichwrap+=<,>,[,],h,l"
 -- vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set iskeyword+=$]]
 vim.cmd [[set iskeyword+=@]]
--- vim.cmd [[set formatoptions+=cro]]
+vim.cmd [[set formatoptions+=cro]]
 
 -- -------------------------------------------------------------------------------------------------
 -- Filetype
@@ -61,7 +61,8 @@ vim.cmd [[set iskeyword+=@]]
 vim.filetype.add({
   extension = {
     h = "c",
-				mdesk = "mdesk",
+				mdesk = "c",
+				metadesk = "c",
 				odin = "odin",
   },
 })

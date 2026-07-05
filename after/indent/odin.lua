@@ -1,6 +1,5 @@
 
 
---[[
 local function prev_nonblank(lnum)
   while lnum > 0 do
     local line = vim.fn.getline(lnum)
@@ -15,7 +14,7 @@ local function prev_nonblank(lnum)
   return 0
 end
 
-function _G.odin_ident()
+function _G.odin_indent()
   local lnum = vim.v.lnum
   local prev = prev_nonblank(lnum - 1)
 
@@ -65,5 +64,4 @@ function _G.odin_ident()
   return math.max(ind, 0)
 end
 
-vim.bo.indentexpr = "v:lua.odin_ident()"
-]]--
+vim.bo.indentexpr = "v:lua.odin_indent()"

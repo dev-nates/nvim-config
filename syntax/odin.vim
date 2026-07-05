@@ -33,6 +33,10 @@ highlight odinArena guifg=#4a7682 gui=BOLD
 highlight odinScratch guifg=#4a7682
 highlight default link odinExpandOperator Operator
 highlight default link odinMaybe Operator
+highlight odinLineComment guifg=#666666 gui=italic
+highlight odinBlockComment guifg=#666666 gui=italic
+
+
 
 highlight default link odinSpecial Operator
 highlight odinPtr guifg=#8c8677 gui=BOLD
