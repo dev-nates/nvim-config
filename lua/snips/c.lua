@@ -70,17 +70,6 @@ local snippets = {
 		})
 	),
 
-	s("name",
-		fmta(
-			[[
-			typedef name <name0> <name1>;
-			name <name> {
-				<body>
-			};
-			]], {name=i(1), name0=rep(1), name1=rep(1), body=i(2)}
-		)
-	),
-
 	s("union", c(1, {
 			fmta(
 				[[

@@ -12,5 +12,5 @@ keymap({"o"}, "l", "ila", opts)
 
 return {
 	-- More vim motions
-	{ "wellle/targets.vim" },
+	{ 'wellle/targets.vim' },
 }

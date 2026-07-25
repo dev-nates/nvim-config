@@ -186,6 +186,25 @@ local snippets = {
 		)
 	),
 
+	s("forp",
+		fmta(
+			[[
+				for <node> := <head>; <nil_value>; <node1> = <node2>.<next> {<body>}
+			]], {
+				node=i(1, "node"), node1=rep(1), node2=rep(1),
+				head=i(2, "head"), 
+				nil_value=d(3, function(args)
+					return sn(nil, c(1, {
+						sn(1, { t(args[1]), t" != ", i(1, "nil") }),
+						sn(2, { t"!", i(1, "check_nil"), t"(", i(2, args[1]), t")" }),
+					}))
+				end, {1}),
+				next=i(4, "next"),
+				body=i(0),
+			}
+		)
+	),
+
 	-- -------------------------------------------------------------------------------------------------
 	-- Testing
 	s("testproc",

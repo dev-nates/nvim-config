@@ -124,11 +124,11 @@ keymap({ "n", "x" }, "K", "k", opts);
 -- Telescope
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-- keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
 keymap("n", "<A-t>", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
-keymap("n", "<A-g>", "<cmd>Telescope live_grep<cr>", opts)
-keymap("n", "<leader>s", "<cmd>Telescope lsp_workspace_symbols<cr>", opts)
-keymap("n", "<leader>S", "<cmd>Telescope lsp_document_symbols<cr>", opts)
-keymap("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
-keymap("n", "<A-m>", "<cmd>Telescope tags<cr>", opts)
+keymap("n", "<A-g>", "<cmd>silent Telescope live_grep<cr>", opts)
+keymap("n", "<leader>s", "<cmd>silent Telescope lsp_workspace_symbols<cr>", opts)
+keymap("n", "<leader>S", "<cmd>silent Telescope lsp_document_symbols<cr>", opts)
+keymap("n", "<leader>/", "<cmd>silent Telescope current_buffer_fuzzy_find<cr>", opts)
+keymap("n", "<A-m>", "<cmd>silent Telescope tags<cr>", opts)
 
 -- NETRW
 keymap("n", "<leader>n", ":Lex 30<cr>", opts)
@@ -162,3 +162,32 @@ keymap({"n", "x"}, 'D', function()
 end, opts)
 
 keymap({"n"}, "X", "dd", opts)
+
+-- ----------------------------------------------------------------------------------------------------
+-- Comment headers
+
+local short_header_kb = "VH"
+local long_header_kb = "VT"
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = { 'odin', 'mdesk', 'c' },
+	callback = function()
+		keymap({ "n", "x" }, short_header_kb, "i// ------------------------------------------------------------<esc>V=", opts)
+		keymap({ "n", "x" }, long_header_kb, "i// ----------------------------------------------------------------------------------------------------<esc>V=", opts)
+	end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = { 'lua' },
+	callback = function()
+		keymap({ "n", "x" }, short_header_kb, "i-- ------------------------------------------------------------<esc>V=", opts)
+		keymap({ "n", "x" }, long_header_kb, "i-- ----------------------------------------------------------------------------------------------------<esc>V=", opts)
+	end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = { 'markdown' },
+	callback = function()
+		keymap({ "n", "x" }, short_header_kb, "i# ------------------------------------------------------------<esc>V=", opts)
+		keymap({ "n", "x" }, long_header_kb, "i# ----------------------------------------------------------------------------------------------------<esc>V=", opts)
+	end
+})

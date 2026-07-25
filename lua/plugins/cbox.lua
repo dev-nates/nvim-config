@@ -32,8 +32,6 @@ local cbox_indent = function(cmd)
 
 	-- -- Reindent this region
 	vim.cmd("normal! =")
-
-	print(vim.inspect(start_pos), vim.inspect(end_pos));
 end
 
 local cbox_delete = function()
@@ -73,9 +71,9 @@ local cbox_delete = function()
 end
 
 -- Comment box
-keymap({ "n", "x" }, "VE", function() cbox_indent("CBlabox") end, opts)
-keymap({ "n", "x" }, "VU", function() cbox_indent("CBlabox18") end, opts)
-keymap({ "n", "x" }, "VH", "<cmd>CBllline<cr><esc>V=", opts)
+-- keymap({ "n", "x" }, "VU", function() cbox_indent("CBlabox") end, opts)
+-- keymap({ "n", "x" }, "VH", "<cmd>CBllline<cr><esc>V=", opts)
+keymap({ "n", "x" }, "VE", function() cbox_indent("CBlabox18") end, opts)
 keymap({ "n", "x" }, "VD", function() cbox_delete() end, opts)
 
 local config = function()
@@ -95,16 +93,16 @@ local config = function()
 	  doc_width = 100, -- width of the document
 	  box_width = 80, -- width of the boxes
 	  line_width = 100, -- width of the lines
-	  -- borders = { -- symbols used to draw a box
-	  --   top = "-",
-	  --   bottom = "-",
-	  --   left = "|",
-	  --   right = "|",
-	  --   top_left = "+",
-	  --   top_right = "+",
-	  --   bottom_left = "+",
-	  --   bottom_right = "+",
-	  -- },
+	  borders = { -- symbols used to draw a box
+	    top = "-",
+	    bottom = "-",
+	    left = "|",
+	    right = "|",
+	    top_left = "#",
+	    top_right = "#",
+	    bottom_left = "#",
+	    bottom_right = "#",
+	  },
 	  lines = { -- symbols used to draw a line
 	    line = "-",
 	    line_start = "-",
@@ -120,9 +118,10 @@ local config = function()
 	})
 end
 
-return {
-	{
-		"LudoPinelli/comment-box.nvim",
-		config = config,
-	},
-}
+return {}
+-- return {
+-- 	{
+-- 		"LudoPinelli/comment-box.nvim",
+-- 		config = config,
+-- 	},
+-- }

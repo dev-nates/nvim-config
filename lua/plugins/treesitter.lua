@@ -6,7 +6,7 @@ local config = function()
 		install_dir = vim.fn.stdpath('data') .. '/site'
 	}
 
-	require('nvim-treesitter').install { 'lua', 'c', 'c3', 'markdown', 'bash' }
+	require('nvim-treesitter').install { 'lua', 'markdown', 'bash' }
 
 	local filetypes = { 'lua', 'conf', 'config', 'md', 'vim', 'sh', }
 	vim.api.nvim_create_autocmd('FileType', {
@@ -21,8 +21,6 @@ local config = function()
 	vim.wo[0][0].foldmethod = 'expr'
 end
 
-return {}
---[[
 return {
 	{
 		'nvim-treesitter/nvim-treesitter',
@@ -32,4 +30,3 @@ return {
 	}
 	-- { "nvim-treesitter/nvim-treesitter-context" },
 }
-]]--

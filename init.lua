@@ -3,8 +3,9 @@ require "config.keymaps"
 require "config.options"
 require "config.quickfix"
 require "config.reload"
-
 require "config.lazy"
+
+require "color.colorscheme"
 
 require "snips.all"
 require "snips.lua"

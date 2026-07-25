@@ -36,35 +36,3 @@ syntax match c3LineComment /\/\/.*/ contains=commentTodo,commentWarning,commentN
 syntax region c3BlockComment start=/\/\*/ end=/\*\// contains=commentTodo,commentWarning,commentNote,commentImportant
 syntax region c3ProcAnnotation start=/<\*/ end=/\*>/
 
-highlight default link c3Special Special
-highlight default link c3Foreach Keyword
-highlight default link c3Keyword Keyword
-highlight default link c3Import Keyword
-highlight default link c3String String
-highlight default link c3Ada Type
-highlight default link c3Boolean Boolean
-highlight default link c3Operators Operator
-
-highlight default link c3ControlFlow Conditional
-highlight default link c3Attributes Define
-
-highlight default link c3Null Constant
-highlight default link c3Enum Constant
-highlight default link c3Num Constant
-highlight default link c3ProcAnnotation Operator
-highlight default link c3Dollar PreCondit
-
-highlight c3Func guifg=#40B388
-highlight c3Namespace guifg=#8c8677
-highlight c3ModuleName guifg=#8c8677
-highlight c3Return guifg=#dfddf4 gui=BOLD
-highlight c3Ada guifg=#b0a78b gui=BOLD
-highlight c3Types guifg=#b0a78b gui=BOLD
-highlight c3Assert guifg=#b53d69
-
-highlight default link c3LineComment Comment
-highlight default link c3BlockComment Comment
-highlight commentNote guifg=#487cd6
-highlight commentWarning guifg=#fcb24b
-highlight commentTodo guifg=#cc4576 
-highlight commentImportant guifg=#ffffff
