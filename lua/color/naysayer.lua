@@ -12,11 +12,14 @@ local apply = function()
 
 	local normal_text = '#d1b897'
 	local lighter_text = '#e2bd8c'
-	local darker_text = '#847c72'
+	local darker_text = '#72685b'
+
 	local accent = '#41c67b'
+	local darker_accent = '#194c2f'
+
 	local pop = '#c67b41'
 	local comment = '#53d549'
-	local darker_comment = '#61875e'
+	local darker_comment = '#358c2f'
 	local constant = '#5cc9ba'
 
 	local note='#487cd6'
@@ -37,6 +40,9 @@ local apply = function()
 		{ 'DisabledCode', { fg = darker_comment } },
 		{ 'Constant',     { fg = constant       } },
 		{ 'String',       { fg = constant       } },
+
+		{ 'FaintProcedureUnderscore', { fg = darker_accent } },
+		{ 'FaintUnderscore', { fg = darker_text } },
 		-- { 'Statement',    {                     } },
 
 
