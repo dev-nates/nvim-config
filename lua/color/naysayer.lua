@@ -49,7 +49,11 @@ local apply = function()
 		{ 'Search', { fg = pop, bg = background }},
 		{ 'CurSearch', { fg = accent, bg = background_pop }},
 		{ 'QuickFixLine', { fg = accent, bg = background_pop }},
+		{ 'Question', { fg = accent, bg = background_pop }},
+		-- { 'MoreMsg', { fg = accent, bg = background_pop }},
 		{ 'CursorLine', { bg = background_pop_subtle }},
+		{ 'Directory', { fg = accent }},
+		{ 'NvimTreeFolderIcon', { fg = darker_text }},
 
 		{ 'CommentNote', { fg = note }},
 		{ 'CommentWarning', { fg = warning }},

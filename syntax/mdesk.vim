@@ -16,7 +16,7 @@ highlight default link mdeskConstant Constant
 syntax match commentTodo /\v(\@Todo|\@Fix|\@Error)/ contained
 syntax match commentNote /@Note/ contained
 syntax match commentWarning /@Warning/ contained
-syntax match commentImportant /\v(\@Hack|\@Info|\@Important|zzz|nocheckin)/ contained
+syntax match commentImportant /\v(\@Hack|\@Info|\@Speed|\@Important|zzz|nocheckin)/ contained
 
 syntax match mdeskLineComment /\/\/.*/ contains=commentTodo,commentWarning,commentNote,commentImportant
 syntax region mdeskBlockComment start=/\/\*/ end=/\*\// contains=commentTodo,commentWarning,commentNote,commentImportant
