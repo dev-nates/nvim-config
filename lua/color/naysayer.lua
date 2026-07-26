@@ -8,6 +8,7 @@ local apply = function()
 
 	local background = '#062625'
 	local background_pop = '#0a3836'
+	local background_pop_subtle = '#062b2a'
 
 	local normal_text = '#d1b897'
 	local lighter_text = '#e2bd8c'
@@ -43,10 +44,12 @@ local apply = function()
 		{ 'SnacksIndentScope', { fg = darker_text, blend = 10 } },
 		{ '@variable',         { fg = normal_text } },
 
-		{ 'StatusLine', { fg = '#000000', bg = normal_text }},
-		{ 'MsgArea', { fg = '#000000', bg = normal_text }},
+		{ 'StatusLine', { fg = normal_text, bg = background }},
+		{ 'MsgArea', { fg = accent, bg = background_pop }},
 		{ 'Search', { fg = pop, bg = background }},
 		{ 'CurSearch', { fg = accent, bg = background_pop }},
+		{ 'QuickFixLine', { fg = accent, bg = background_pop }},
+		{ 'CursorLine', { bg = background_pop_subtle }},
 
 		{ 'CommentNote', { fg = note }},
 		{ 'CommentWarning', { fg = warning }},

@@ -2,6 +2,7 @@ syntax keyword odinTypes byte
 syntax keyword odinFallthrough fallthrough
 
 syntax match odinOperator /\(!=\|==\|=\|:=\|*\|?\)/
+syntax match odinAdditionalStatements /\v(or_return|or_break|or_continue|Maybe)/
 
 "syntax match odinIdentifier0 /\v\zs(<[a-z0-9_]*>)(\.)@!\ze.*\:/
 "syntax match odinIdentifier1 /\v\zs<[a-z0-9_]*>\ze.*\:.*\=/
@@ -20,7 +21,7 @@ syntax match odinEnum /\<[A-Z0-9_]*\>/
 syntax match commentTodo /\v(\@Todo|\@Fix|\@Error)/ containedin=odinBlockComment,odinLineComment
 syntax match commentNote /@Note/ containedin=odinBlockComment,odinLineComment
 syntax match commentWarning /@Warning/ containedin=odinBlockComment,odinLineComment
-syntax match commentImportant /\v(\@Study|\@Info|\@Important|\@Debug|zzz|nocheckin)/ containedin=odinBlockComment,odinLineComment
+syntax match commentImportant /\v(\@Hack|\@Study|\@Info|\@Important|\@Debug|zzz|nocheckin)/ containedin=odinBlockComment,odinLineComment
 
 highlight default link odinEnum Constant
 highlight default link odinControlFlow Operator
@@ -29,3 +30,4 @@ highlight default link odinDeref Operator
 "highlight default link odinIdentifier0 Identifier
 "highlight default link odinIdentifier1 Identifier
 highlight default link odinBlockComment DisabledCode
+highlight default link odinAdditionalStatements Statement

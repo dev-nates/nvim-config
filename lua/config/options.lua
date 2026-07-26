@@ -61,9 +61,9 @@ vim.cmd [[set formatoptions+=cro]]
 vim.filetype.add({
   extension = {
     h = "c",
-				mdesk = "odin",
-				metadesk = "odin",
 				odin = "odin",
+				-- mdesk = "odin",
+				-- metadesk = "odin",
   },
 })
 
