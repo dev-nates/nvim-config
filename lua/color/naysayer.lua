@@ -44,7 +44,7 @@ local apply = function()
 		{ 'SnacksIndentScope', { fg = darker_text, blend = 10 } },
 		{ '@variable',         { fg = normal_text } },
 
-		{ 'StatusLine', { fg = normal_text, bg = background }},
+		{ 'StatusLine', { fg = accent, bg = background_pop }},
 		{ 'MsgArea', { fg = accent, bg = background_pop }},
 		{ 'Search', { fg = pop, bg = background }},
 		{ 'CurSearch', { fg = accent, bg = background_pop }},

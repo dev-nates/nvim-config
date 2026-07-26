@@ -62,8 +62,8 @@ vim.filetype.add({
   extension = {
     h = "c",
 				odin = "odin",
-				-- mdesk = "odin",
-				-- metadesk = "odin",
+				mdesk = "mdesk",
+				metadesk = "medsk",
   },
 })
 
