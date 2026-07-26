@@ -30,7 +30,9 @@ local apply = function()
 	-- ------------------------------------------------------------
 	-- Group: 'highlight group name' && 'color table'
 	local groups = {
-		{ 'Normal',       { fg = normal_text, bg = background } },
+		{ 'Normal',      { fg = normal_text, bg = background } },
+		{ 'NormalFloat', { fg = accent, bg = background_pop } },
+
 		{ 'Operator',     { fg = darker_text } },
 		{ 'Delimiter',    { fg = darker_text } },
 		{ 'Special',      { fg = darker_text } },
@@ -45,9 +47,18 @@ local apply = function()
 		{ 'FaintUnderscore', { fg = darker_text } },
 		-- { 'Statement',    {                     } },
 
+		{ 'FloatBorder', { fg = accent, bg = background_pop } },
+		{ 'FloatTitle',  { fg = accent, bg = background_pop } },
+		{ 'FloatFooter', { fg = accent, bg = background_pop } },
+		{ 'Visual',      { fg = accent, bg = background_pop } },
+		{ 'MoreMsg',      { fg = accent, bg = background_pop } },
+		{ 'ComplHintMore', { fg = accent, bg = background_pop } },
 
-		{ 'SnacksIndent',      { fg = background_pop, blend = 10 } },
-		{ 'SnacksIndentScope', { fg = darker_text, blend = 10 } },
+		{ 'LineNr',       { fg = darker_text, bg = background } },
+		{ 'CursorLineNr', { fg = darker_text, bg = background } },
+
+		{ 'SnacksIndentScope', { fg = accent } },
+		{ 'SnacksIndent',      { fg = background_pop } },
 		{ '@variable',         { fg = normal_text } },
 
 		{ 'StatusLine', { fg = accent, bg = background_pop }},
@@ -60,6 +71,8 @@ local apply = function()
 		{ 'CursorLine', { bg = background_pop_subtle }},
 		{ 'Directory', { fg = accent }},
 		{ 'NvimTreeFolderIcon', { fg = darker_text }},
+		{ 'Folded', { fg = accent, bg = background_pop }},
+		{ 'WildMenu',  { fg = accent, bg = background_pop } },
 
 		{ 'CommentNote', { fg = note }},
 		{ 'CommentWarning', { fg = warning }},
