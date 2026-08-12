@@ -58,11 +58,10 @@ local config = function()
 	require('mini.indentscope').setup(opts)
 end
 
-return {}
--- return {
--- 	{
--- 		'nvim-mini/mini.indentscope',
--- 		version = '*',
--- 		config = config,
--- 	},
--- }
+return {
+	{
+		'nvim-mini/mini.indentscope',
+		version = '*',
+		config = config,
+	},
+}

@@ -181,7 +181,7 @@ local snippets = {
 
 	s("scr",
 			fmta([[
-				<scratch> := memory.scratch({<arena>})
+				<scratch> := scratch_memory({<arena>})
 			]], {scratch=i(1, "scratch"), arena=i(2)}
 		)
 	),

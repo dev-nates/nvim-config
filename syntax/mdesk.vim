@@ -22,6 +22,6 @@ syntax match mdeskLineComment /\/\/.*/ contains=commentTodo,commentWarning,comme
 syntax region mdeskBlockComment start=/\/\*/ end=/\*\// contains=commentTodo,commentWarning,commentNote,commentImportant
 syntax region mdeskProcAnnotation start=/<\*/ end=/\*>/
 
-highlight default link mdeskBlockComment Comment
+highlight default link mdeskBlockComment DisabledCode
 highlight default link mdeskLineComment Comment
 

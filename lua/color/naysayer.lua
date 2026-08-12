@@ -31,7 +31,7 @@ local apply = function()
 	-- Group: 'highlight group name' && 'color table'
 	local groups = {
 		{ 'Normal',      { fg = normal_text, bg = background } },
-		{ 'NormalFloat', { fg = accent, bg = background_pop } },
+		{ 'NormalFloat', { fg = normal_text, bg = background } },
 
 		{ 'Operator',     { fg = darker_text } },
 		{ 'Delimiter',    { fg = darker_text } },
@@ -45,21 +45,26 @@ local apply = function()
 
 		{ 'FaintProcedureUnderscore', { fg = darker_accent } },
 		{ 'FaintUnderscore', { fg = darker_text } },
-		-- { 'Statement',    {                     } },
+		{ 'Statement',    {                     } },
 
-		{ 'FloatBorder', { fg = accent, bg = background_pop } },
-		{ 'FloatTitle',  { fg = accent, bg = background_pop } },
-		{ 'FloatFooter', { fg = accent, bg = background_pop } },
+		{ 'FloatBorder', { fg = normal_text, bg = background } },
+		{ 'FloatTitle',  { fg = normal_text, bg = background } },
+		{ 'FloatFooter', { fg = normal_text, bg = background } },
 		{ 'Visual',      { fg = accent, bg = background_pop } },
 		{ 'MoreMsg',      { fg = accent, bg = background_pop } },
 		{ 'ComplHintMore', { fg = accent, bg = background_pop } },
+		{ 'MatchParen',      { fg = accent, bg = background_pop } },
+		{ 'NvimTreeWindowPicker', { fg = accent, bg = background_pop } },
+		{ 'DevIconOdin', { fg = accent, bg = background_pop } },
 
 		{ 'LineNr',       { fg = darker_text, bg = background } },
 		{ 'CursorLineNr', { fg = darker_text, bg = background } },
 
-		{ 'SnacksIndentScope', { fg = accent } },
-		{ 'SnacksIndent',      { fg = background_pop } },
+		{ 'MiniIndentscopeSymbol', { fg = darker_text } },
 		{ '@variable',         { fg = normal_text } },
+		-- { 'SnacksIndentScope', { fg = accent } },
+		-- { 'SnacksIndent',      { fg = background_pop } },
+		-- { '@variable',         { fg = normal_text } },
 
 		{ 'StatusLine', { fg = accent, bg = background_pop }},
 		{ 'MsgArea', { fg = accent, bg = background_pop }},
@@ -71,7 +76,7 @@ local apply = function()
 		{ 'CursorLine', { bg = background_pop_subtle }},
 		{ 'Directory', { fg = accent }},
 		{ 'NvimTreeFolderIcon', { fg = darker_text }},
-		{ 'Folded', { fg = accent, bg = background_pop }},
+		{ 'Folded', { fg = accent, bg = background_pop_subtle }},
 		{ 'WildMenu',  { fg = accent, bg = background_pop } },
 
 		{ 'CommentNote', { fg = note }},
@@ -85,7 +90,5 @@ local apply = function()
 	end
 end
 
-local Colorscheme = {
-	apply = apply,
-}
+local Colorscheme = { apply = apply, }
 return Colorscheme

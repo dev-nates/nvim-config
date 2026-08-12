@@ -148,8 +148,8 @@ keymap("n", "<A-b>", "<c-]>", opts)
 keymap("n", "\\", "<cmd>noh<cr>", opts)
 
 -- Move up/down by scope
-keymap({ "n", "x" }, "{", "[{", opts)
-keymap({ "n", "x" }, "}", "]}", opts)
+-- keymap({ "n", "x" }, "{", "[{", opts)
+-- keymap({ "n", "x" }, "}", "]}", opts)
 
 -- Move up/down by paragraph
 

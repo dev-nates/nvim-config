@@ -1,7 +1,7 @@
 syntax keyword odinTypes byte
 syntax keyword odinFallthrough fallthrough
 
-syntax match odinOperator /\(!=\|==\|=\|:=\|*\|?\|:\|\.\|,\)/
+syntax match odinOperator /\(!=\|==\|=\|<\|>\|:=\|*\|?\|:\|\.\|,\)/
 syntax match odinAdditionalStatements /\v(or_return|or_break|or_continue|Maybe)/
 syntax match odinProcedureUnderscore /_/ containedin=odinProcedure,odinFuncDecl contained
 syntax match odinUnderscore /_/

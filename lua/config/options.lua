@@ -64,6 +64,7 @@ vim.filetype.add({
 				odin = "odin",
 				mdesk = "mdesk",
 				metadesk = "medsk",
+				slang = "slang",
   },
 })
 
