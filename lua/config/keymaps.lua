@@ -13,7 +13,7 @@ keymap("n", "<leader>r", "<cmd>lua ReloadConfig()<CR>", { noremap = true, silent
 -- Change <C-c> to escape
 keymap("n", "<C-c>", "<Esc>", opts)
 -- Allow tab to exit insert mode
-keymap({"n", "x", "i"}, "<tab>", "<Esc>", opts)
+-- keymap({"n", "x", "i"}, "<tab>", "<Esc>", opts)
 keymap({"n"}, "&", "<C-o>", opts)
 keymap({"n"}, "#", "<C-i>", opts)
 
@@ -28,6 +28,9 @@ keymap("n", "<A-C>", ":wqa<cr>", opts)
 
 -- Enter can be used to save everything
 keymap("n", "<cr>", "<cmd>wa<cr>", opts)
+
+-- Toggle Word Wrap
+keymap("n", "<C-m>", ":set wrap!<cr>", opts)
 
 -- Enter can be used to insert newlines in normal mode
 -- keymap("n", "<cr>", "o<esc>", opts)
@@ -92,8 +95,10 @@ keymap({"n", "x"}, "<S-l>", "g_", opts)
 -- keymap("n", "<S-l>", "l", opts)
 
 -- Make it easier to use j/k to jump around with numbered jumps e.g. 5) will be 5k
-keymap({ "n", "x" }, "(", "k", opts)
-keymap({ "n", "x" }, ")", "j", opts)
+keymap({ "n", "x" }, "k", "gk", opts)
+keymap({ "n", "x" }, "j", "gj", opts)
+keymap({ "n", "x" }, "(", "gk", opts)
+keymap({ "n", "x" }, ")", "gj", opts)
 
 -- Exit insert mode
 keymap("i", "<C-c>", "<Esc>", opts)
@@ -166,28 +171,35 @@ keymap({"n"}, "X", "dd", opts)
 -- ----------------------------------------------------------------------------------------------------
 -- Comment headers
 
-local short_header_kb = "VH"
-local long_header_kb = "VT"
+local short_header_key_bind = "VH"
+local long_header_key_bind = "VT"
+local section_key_bind = "VM"
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = { 'odin', 'mdesk', 'c' },
 	callback = function()
-		keymap({ "n", "x" }, short_header_kb, "i// ------------------------------------------------------------<esc>V=", opts)
-		keymap({ "n", "x" }, long_header_kb, "i// ----------------------------------------------------------------------------------------------------<esc>V=", opts)
+		keymap({ "n", "x" }, short_header_key_bind, "i// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<esc>V=", opts)
+		keymap({ "n", "x" }, long_header_key_bind, "i// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<esc>V=", opts)
+		keymap({ "n", "x" }, section_key_bind, "i// ----------------------------------------------------------------------------------------------------<esc>V=", opts)
 	end
 })
+
+--____________________________________________________________________________________________
+-- this is a section
 
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = { 'lua' },
 	callback = function()
-		keymap({ "n", "x" }, short_header_kb, "i-- ------------------------------------------------------------<esc>V=", opts)
-		keymap({ "n", "x" }, long_header_kb, "i-- ----------------------------------------------------------------------------------------------------<esc>V=", opts)
+		keymap({ "n", "x" }, short_header_key_bind, "i-- _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<esc>V=", opts)
+		keymap({ "n", "x" }, long_header_key_bind, "i-- _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<esc>V=", opts)
+		keymap({ "n", "x" }, section_key_bind, "i-- ----------------------------------------------------------------------------------------------------<esc>V=", opts)
 	end
 })
 
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = { 'markdown' },
 	callback = function()
-		keymap({ "n", "x" }, short_header_kb, "i# ------------------------------------------------------------<esc>V=", opts)
-		keymap({ "n", "x" }, long_header_kb, "i# ----------------------------------------------------------------------------------------------------<esc>V=", opts)
+		keymap({ "n", "x" }, short_header_key_bind, "i# _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<esc>V=", opts)
+		keymap({ "n", "x" }, long_header_key_bind, "i# _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<esc>V=", opts)
+		keymap({ "n", "x" }, section_key_bind, "i# ----------------------------------------------------------------------------------------------------<esc>V=", opts)
 	end
 })

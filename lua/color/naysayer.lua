@@ -18,8 +18,8 @@ local apply = function()
 	local darker_accent = '#194c2f'
 
 	local pop = '#c67b41'
-	local comment = '#53d549'
-	local darker_comment = '#358c2f'
+	local comment = '#31B72C'
+	local darker_comment = comment
 	local constant = '#5cc9ba'
 
 	local note='#487cd6'

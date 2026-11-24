@@ -205,6 +205,21 @@ local snippets = {
 		)
 	),
 
+	s("struct",
+		c(1, {
+			fmta([[
+				<name> :: struct {
+					<body>
+				}
+			]], {name=i(1, "Struct"), body=i(2)}),
+			fmta([[
+				<name> :: struct(<poly>) {
+					<body>
+				}
+			]], {name=i(1, "Struct"), poly=i(2, "$T: typeid"), body=i(3)}),
+		})
+	),
+
 	-- -------------------------------------------------------------------------------------------------
 	-- Testing
 	s("testproc",

@@ -27,9 +27,10 @@ local config = function()
 end
 
 
-return {
- {
-		'm4xshen/autoclose.nvim',
-		config = config,
-	}
-}
+return {}
+-- return {
+--  {
+-- 		'm4xshen/autoclose.nvim',
+-- 		config = config,
+-- 	}
+-- }

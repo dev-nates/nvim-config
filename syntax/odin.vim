@@ -1,7 +1,6 @@
-syntax keyword odinTypes byte
 syntax keyword odinFallthrough fallthrough
 
-syntax match odinOperator /\(!=\|==\|=\|<\|>\|:=\|*\|?\|:\|\.\|,\)/
+syntax match odinOperator /\(!=\|==\|=\|<\|>\|:=\|+\|-\|*\|\/\|?\|:\|\.\|,\)/
 syntax match odinAdditionalStatements /\v(or_return|or_break|or_continue|Maybe)/
 syntax match odinProcedureUnderscore /_/ containedin=odinProcedure,odinFuncDecl contained
 syntax match odinUnderscore /_/
@@ -10,6 +9,7 @@ syntax match odinUnderscore /_/
 syntax match odinControlFlow /\v(\{|\}|\(|\)|\[|\])/
 syntax match odinEnum /\<[A-Z0-9_]*\>/
 syntax match odinFuncDecl /\v(<\w*>)\ze(\s*::.*proc)/ contains=ALLBUT,odinUnderscore
+syntax match odinAsmDecl /\v(<\w*>)\ze(\s*::.*asm)/ contains=ALLBUT,odinUnderscore
 
 syntax match commentTodo /\v(\@Todo|\@Fix|\@Error)/ containedin=odinBlockComment,odinLineComment
 syntax match commentNote /@Note/ containedin=odinBlockComment,odinLineComment
@@ -23,6 +23,7 @@ highlight default link odinDeref Operator
 highlight default link odinBlockComment DisabledCode
 highlight default link odinAdditionalStatements Statement
 highlight default link odinFuncDecl Function
+highlight default link odinAsmDecl Function
 
 highlight default link odinProcedureUnderscore FaintProcedureUnderscore
 highlight default link odinUnderscore FaintUnderscore
